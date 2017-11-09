@@ -1,0 +1,522 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD 10\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">13.01.2013</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">18:36:06</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc" class="file"><acronym title="C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc">C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">6</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">38</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDASAOKD"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAEBOKD">Zero hole size multi-layer pad(s) detected</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAICOKD">Multilayer Pads with 0 size Hole found</a></td>
+<td class="column2">3</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">6</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA3COKD">Room LED-kube-kontrollerkort_v0-0-1 (Bounding Region = (94.888mm, 51.915mm, 178.2mm, 84.3mm) (Disabled)(InComponentClass('LED-kube-kontrollerkort_v0-0-1'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDADDOKD">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.3mm) (Air Gap=0.3mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAJDOKD">Clearance Constraint (Gap=0.2mm) (All),(All)</a></td>
+<td class="column2">12</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDA1GOKD">Width Constraint (Min=0.2mm) (Max=2mm) (Preferred=0.3mm) (All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAHHOKD">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAZHOKD">Silk to Silk (Clearance=0.254mm) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDACQOKD">Silkscreen Over Component Pads (Clearance=0.254mm) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAIQOKD">Minimum Solder Mask Sliver (Gap=0.254mm) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAOQOKD">Hole To Hole Clearance (Gap=0.2mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAUQOKD">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA0QOKD">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (Disabled)(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAAROKD">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">21</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAEVOKD">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDA2VOKD">SMD To Plane Constraint (Distance=0.3mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">38</td>
+</tr>
+</table><br><hr><a name="IDABBOKD"><h2>Warnings</h2></a><a name="IDAEBOKD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Zero hole size multi-layer pad(s) detected</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1149.543mil|Location2.X=1236.284mil|Location1.Y=3405.055mil|Location2.Y=3590.22mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1149.543mil|Location2.X=1236.284mil|Location1.Y=3405.055mil|Location2.Y=3590.22mil|Absolute=True">Pad J?-1(30.3mm,88.84mm)  Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=889.701mil|Location2.X=2666.205mil|Location1.Y=1383.795mil|Location2.Y=3590.22mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=889.701mil|Location2.X=2666.205mil|Location1.Y=1383.795mil|Location2.Y=3590.22mil|Absolute=True">Net VCC</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=905.449mil|Location2.X=992.189mil|Location1.Y=3414.898mil|Location2.Y=3580.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=905.449mil|Location2.X=992.189mil|Location1.Y=3414.898mil|Location2.Y=3580.378mil|Absolute=True">Pad J?-2(24.1mm,88.84mm)  Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=2677.228mil|Location1.Y=1161.417mil|Location2.Y=3737.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=2677.228mil|Location1.Y=1161.417mil|Location2.Y=3737.858mil|Absolute=True">Net GND</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=984.189mil|Location2.X=1149.669mil|Location1.Y=3651.118mil|Location2.Y=3737.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=984.189mil|Location2.X=1149.669mil|Location1.Y=3651.118mil|Location2.Y=3737.858mil|Absolute=True">Pad J?-3(27.1mm,93.84mm)  Multi-Layer</acronym></a> on <a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=2677.228mil|Location1.Y=1161.417mil|Location2.Y=3737.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=2677.228mil|Location1.Y=1161.417mil|Location2.Y=3737.858mil|Absolute=True">Net GND</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDAICOKD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Multilayer Pads with 0 size Hole found</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1149.543mil|Location2.X=1236.284mil|Location1.Y=3405.055mil|Location2.Y=3590.22mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1149.543mil|Location2.X=1236.284mil|Location1.Y=3405.055mil|Location2.Y=3590.22mil|Absolute=True">Pad J?-1(30.3mm,88.84mm)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=905.449mil|Location2.X=992.189mil|Location1.Y=3414.898mil|Location2.Y=3580.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=905.449mil|Location2.X=992.189mil|Location1.Y=3414.898mil|Location2.Y=3580.378mil|Absolute=True">Pad J?-2(24.1mm,88.84mm)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=984.189mil|Location2.X=1149.669mil|Location1.Y=3651.118mil|Location2.Y=3737.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=984.189mil|Location2.X=1149.669mil|Location1.Y=3651.118mil|Location2.Y=3737.858mil|Absolute=True">Pad J?-3(27.1mm,93.84mm)  Multi-Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><hr><a name="IDAJDOKD"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Clearance Constraint (Gap=0.2mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True">Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2547.181mil|Location2.Y=2574.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2547.181mil|Location2.Y=2574.866mil|Absolute=True">Pad J2-4(27.063mm,65.05mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True">Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2578.677mil|Location2.Y=2606.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2578.677mil|Location2.Y=2606.362mil|Absolute=True">Pad J2-5(27.063mm,65.85mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True">Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2515.685mil|Location2.Y=2543.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2515.685mil|Location2.Y=2543.37mil|Absolute=True">Pad J2-3(27.063mm,64.25mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True">Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2484.189mil|Location2.Y=2511.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2484.189mil|Location2.Y=2511.874mil|Absolute=True">Pad J2-2(27.063mm,63.45mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=645.157mil|Location2.X=1019.171mil|Location1.Y=2372.062mil|Location2.Y=2687.022mil|Absolute=True">Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.174mil|Location2.X=1115.694mil|Location1.Y=2452.693mil|Location2.Y=2480.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.174mil|Location2.X=1115.694mil|Location1.Y=2452.693mil|Location2.Y=2480.378mil|Absolute=True">Pad J2-1(27.062mm,62.65mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1874.016mil|Location2.X=1885.827mil|Location1.Y=1858.268mil|Location2.Y=1919.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1874.016mil|Location2.X=1885.827mil|Location1.Y=1858.268mil|Location2.Y=1919.291mil|Absolute=True">Track (47.75mm,47.35mm)(47.75mm,48.6mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.094mil|Location2.X=1894.748mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.094mil|Location2.X=1894.748mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True">Pad U?-28(47.75mm,48.6mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1842.52mil|Location2.X=1854.331mil|Location1.Y=1854.331mil|Location2.Y=1919.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1842.52mil|Location2.X=1854.331mil|Location1.Y=1854.331mil|Location2.Y=1919.291mil|Absolute=True">Track (46.95mm,47.25mm)(46.95mm,48.6mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1833.598mil|Location2.X=1863.252mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1833.598mil|Location2.X=1863.252mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True">Pad U?-27(46.95mm,48.6mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1132.366mil|Location2.X=1162.362mil|Location1.Y=2067.799mil|Location2.Y=2097.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1132.366mil|Location2.X=1162.362mil|Location1.Y=2067.799mil|Location2.Y=2097.795mil|Absolute=True">Text "." (29.27mm,53.03mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1009.842mil|Location2.X=1275.589mil|Location1.Y=1907.48mil|Location2.Y=2173.227mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1009.842mil|Location2.X=1275.589mil|Location1.Y=1907.48mil|Location2.Y=2173.227mil|Absolute=True">Track (25.8mm,48.6mm)(32.25mm,55.05mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2841.575mil|Location2.X=2871.572mil|Location1.Y=3391.968mil|Location2.Y=3421.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2841.575mil|Location2.X=2871.572mil|Location1.Y=3391.968mil|Location2.Y=3421.965mil|Absolute=True">Text "." (72.43mm,86.41mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2875.984mil|Location2.X=2887.795mil|Location1.Y=1937.401mil|Location2.Y=3655.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2875.984mil|Location2.X=2887.795mil|Location1.Y=1937.401mil|Location2.Y=3655.512mil|Absolute=True">Track (73.2mm,49.36mm)(73.2mm,92.7mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2841.575mil|Location2.X=2871.572mil|Location1.Y=3391.968mil|Location2.Y=3421.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2841.575mil|Location2.X=2871.572mil|Location1.Y=3391.968mil|Location2.Y=3421.965mil|Absolute=True">Text "." (72.43mm,86.41mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2852.362mil|Location2.X=2864.173mil|Location1.Y=2013.779mil|Location2.Y=3643.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2852.362mil|Location2.X=2864.173mil|Location1.Y=2013.779mil|Location2.Y=3643.701mil|Absolute=True">Track (72.6mm,51.3mm)(72.6mm,92.4mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2841.575mil|Location2.X=2871.572mil|Location1.Y=3391.968mil|Location2.Y=3421.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2841.575mil|Location2.X=2871.572mil|Location1.Y=3391.968mil|Location2.Y=3421.965mil|Absolute=True">Text "." (72.43mm,86.41mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2828.74mil|Location2.X=2840.551mil|Location1.Y=2090.157mil|Location2.Y=3631.89mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2828.74mil|Location2.X=2840.551mil|Location1.Y=2090.157mil|Location2.Y=3631.89mil|Absolute=True">Track (72mm,53.24mm)(72mm,92.1mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1132.366mil|Location2.X=1162.362mil|Location1.Y=2067.799mil|Location2.Y=2097.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1132.366mil|Location2.X=1162.362mil|Location1.Y=2067.799mil|Location2.Y=2097.795mil|Absolute=True">Text "." (29.27mm,53.03mm)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.551mil|Location2.X=1129.921mil|Location1.Y=1751.968mil|Location2.Y=2334.646mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.551mil|Location2.X=1129.921mil|Location1.Y=1751.968mil|Location2.Y=2334.646mil|Absolute=True">Track (28.2mm,45mm)(28.2mm,58.8mm)  Bottom Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDA1GOKD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Width Constraint (Min=0.2mm) (Max=2mm) (Preferred=0.3mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.878mil|Location2.X=1385.358mil|Location1.Y=3305.193mil|Location2.Y=3465.673mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.878mil|Location2.X=1385.358mil|Location1.Y=3305.193mil|Location2.Y=3465.673mil|Absolute=True">Width Constraint: Track (30.3mm,88.84mm)(36mm,83.14mm)  Top Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDAHHOKD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1870.516mil|Location2.X=1896.075mil|Location1.Y=1903.98mil|Location2.Y=1941.43mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1870.516mil|Location2.X=1896.075mil|Location1.Y=1903.98mil|Location2.Y=1941.43mil|Absolute=True">Net Antennae: Track (47.75mm,47.35mm)(47.75mm,48.6mm)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.02mil|Location2.X=1864.579mil|Location1.Y=1903.98mil|Location2.Y=1941.43mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1839.02mil|Location2.X=1864.579mil|Location1.Y=1903.98mil|Location2.Y=1941.43mil|Absolute=True">Net Antennae: Track (46.95mm,47.25mm)(46.95mm,48.6mm)  Top Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDAAROKD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2547.181mil|Location2.Y=2606.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1115.714mil|Location1.Y=2547.181mil|Location2.Y=2606.362mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J2-4 (27.063,65.05mm) And Pad J2-5 (27.063,65.85mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2051.244mil|Location1.Y=2979.858mil|Location2.Y=3232.347mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2051.244mil|Location1.Y=2979.858mil|Location2.Y=3232.347mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-2 (50.9,76.54mm) And Via (51,81mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2589.307mil|Location2.X=2676.047mil|Location1.Y=3262.535mil|Location2.Y=3557.544mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2589.307mil|Location2.X=2676.047mil|Location1.Y=3262.535mil|Location2.Y=3557.544mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P3-3 (66.87,83.72mm) And Via (66.87,89.26mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2590.488mil|Location2.X=2677.228mil|Location1.Y=1959.385mil|Location2.Y=2263.843mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2590.488mil|Location2.X=2677.228mil|Location1.Y=1959.385mil|Location2.Y=2263.843mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P4-3 (66.87,50.62mm) And Via (66.9,56.4mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=915.291mil|Location2.X=1061.086mil|Location1.Y=3503.48mil|Location2.Y=3728.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=915.291mil|Location2.X=1061.086mil|Location1.Y=3503.48mil|Location2.Y=3728.016mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J?-2A (24.1,89.84mm) And Pad J?-3A (26.1,93.84mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.63mil|Location2.X=2043.37mil|Location1.Y=2728.283mil|Location2.Y=3046.913mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1956.63mil|Location2.X=2043.37mil|Location1.Y=2728.283mil|Location2.Y=3046.913mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Via (50.8,70.4mm) And Pad P1-2 (50.9,76.54mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1397.575mil|Location2.X=1579.788mil|Location1.Y=2477.299mil|Location2.Y=2708.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1397.575mil|Location2.X=1579.788mil|Location1.Y=2477.299mil|Location2.Y=2708.724mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-1 (36.4,67.8mm) And Pad U?-63 (39.75,63.9mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1550.134mil|Location2.X=1894.748mil|Location1.Y=2477.299mil|Location2.Y=2554.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1550.134mil|Location2.X=1894.748mil|Location1.Y=2477.299mil|Location2.Y=2554.197mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U?-63 (39.75,63.9mm) And Pad U?-53 (47.75,63.9mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1570.409mil|Location2.X=2037.465mil|Location1.Y=2979.858mil|Location2.Y=3046.913mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1570.409mil|Location2.X=2037.465mil|Location1.Y=2979.858mil|Location2.Y=3046.913mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-10 (40.74,76.54mm) And Pad P1-2 (50.9,76.54mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1558.205mil|Location2.X=1644.945mil|Location1.Y=2979.858mil|Location2.Y=3466.205mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1558.205mil|Location2.X=1644.945mil|Location1.Y=2979.858mil|Location2.Y=3466.205mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Via (40.68,86.94mm) And Pad P1-10 (40.74,76.54mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1242.189mil|Location1.Y=2224.347mil|Location2.Y=2574.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1242.189mil|Location1.Y=2224.347mil|Location2.Y=2574.866mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J2-4 (27.063,65.05mm) And Pad C4-1 (30.65,57.5mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1789.307mil|Location2.X=2287.465mil|Location1.Y=1373.953mil|Location2.Y=1505.968mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1789.307mil|Location2.X=2287.465mil|Location1.Y=1373.953mil|Location2.Y=1505.968mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1 (46.45,37.35mm) And Via (57,36mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.575mil|Location2.X=1790.945mil|Location1.Y=1372.441mil|Location2.Y=2013.386mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.575mil|Location2.X=1790.945mil|Location1.Y=1372.441mil|Location2.Y=2013.386mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track on layer Top Layer (41.95,37.4mm) And Pad U?-22 (42.95,48.6mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=866.598mil|Location1.Y=1383.795mil|Location2.Y=2041.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=866.598mil|Location1.Y=1383.795mil|Location2.Y=2041.401mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P9-2 (21.16,36mm) And Pad P8-2 (21.16,51mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.094mil|Location2.X=2043.37mil|Location1.Y=2477.299mil|Location2.Y=2815.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.094mil|Location2.X=2043.37mil|Location1.Y=2477.299mil|Location2.Y=2815.024mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U?-53 (47.75,63.9mm) And Via (50.8,70.4mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1468.567mil|Location1.Y=2578.677mil|Location2.Y=2708.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1015.194mil|Location2.X=1468.567mil|Location1.Y=2578.677mil|Location2.Y=2708.724mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J2-5 (27.063,65.85mm) And Pad C3-1 (36.4,67.8mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=1242.189mil|Location1.Y=1974.347mil|Location2.Y=2303.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=799.543mil|Location2.X=1242.189mil|Location1.Y=1974.347mil|Location2.Y=2303.213mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P8-2 (21.16,51mm) And Pad C4-1 (30.65,57.5mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=915.291mil|Location2.X=1644.945mil|Location1.Y=3379.465mil|Location2.Y=3491.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=915.291mil|Location2.X=1644.945mil|Location1.Y=3379.465mil|Location2.Y=3491.795mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J?-2B (24.1,87.84mm) And Via (40.68,86.94mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1550.134mil|Location2.X=1705.772mil|Location1.Y=1874.937mil|Location2.Y=2554.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1550.134mil|Location2.X=1705.772mil|Location1.Y=1874.937mil|Location2.Y=2554.197mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U?-63 (39.75,63.9mm) And Pad U?-22 (42.95,48.6mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2666.205mil|Location1.Y=3145.606mil|Location2.Y=3329.59mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2666.205mil|Location1.Y=3145.606mil|Location2.Y=3329.59mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Via (51,81mm) And Pad P3-3 (66.87,83.72mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2200.724mil|Location2.X=2666.205mil|Location1.Y=1373.953mil|Location2.Y=2026.44mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2200.724mil|Location2.X=2666.205mil|Location1.Y=1373.953mil|Location2.Y=2026.44mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Via (57,36mm) And Pad P4-3 (66.87,50.62mm)</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDAEVOKD"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1874.016mil|Location2.X=1885.827mil|Location1.Y=1858.268mil|Location2.Y=1919.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1874.016mil|Location2.X=1885.827mil|Location1.Y=1858.268mil|Location2.Y=1919.291mil|Absolute=True">Track (47.75mm,47.35mm)(47.75mm,48.6mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.094mil|Location2.X=1894.748mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1865.094mil|Location2.X=1894.748mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True">Pad U?-28(47.75mm,48.6mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1842.52mil|Location2.X=1854.331mil|Location1.Y=1854.331mil|Location2.Y=1919.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1842.52mil|Location2.X=1854.331mil|Location1.Y=1854.331mil|Location2.Y=1919.291mil|Absolute=True">Track (46.95mm,47.25mm)(46.95mm,48.6mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1833.598mil|Location2.X=1863.252mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1833.598mil|Location2.X=1863.252mil|Location1.Y=1874.937mil|Location2.Y=1951.834mil|Absolute=True">Pad U?-27(46.95mm,48.6mm)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=SCK Pin=U?-31
+Removed Pin From Net: NetName=RCK Pin=U?-32
+Added Pin To Net: NetName=RCK Pin=U?-31
+Added Pin To Net: NetName=SCK Pin=U?-32

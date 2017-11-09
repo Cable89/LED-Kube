@@ -1,0 +1,10 @@
+Change Pin Designator/Name:  Old Designator=U?-27 Old Name=PD2 (RXD1/INT2) New Designator =PA1 (AD1) New Name=50
+Change Pin Designator/Name:  Old Designator=U?-28 Old Name=PD3 (TXD1/INT3) New Designator =PA0 (AD0) New Name=51
+Change Pin Designator/Name:  Old Designator=U?-44 Old Name=PA7 (AD7) New Designator =PA2 (AD2) New Name=49
+Change Pin Designator/Name:  Old Designator=U?-45 Old Name=PA6 (AD6) New Designator =PA3 (AD3) New Name=48
+Change Pin Designator/Name:  Old Designator=U?-46 Old Name=PA5 (AD5) New Designator =PA4 (AD4) New Name=47
+Change Pin Designator/Name:  Old Designator=U?-47 Old Name=PA4 (AD4) New Designator =PA5 (AD5) New Name=46
+Change Pin Designator/Name:  Old Designator=U?-48 Old Name=PA3 (AD3) New Designator =PA6 (AD6) New Name=45
+Change Pin Designator/Name:  Old Designator=U?-49 Old Name=PA2 (AD2) New Designator =PA7 (AD7) New Name=44
+Change Pin Designator/Name:  Old Designator=U?-50 Old Name=PA1 (AD1) New Designator =PD2 (RXD1/INT2) New Name=27
+Change Pin Designator/Name:  Old Designator=U?-51 Old Name=PA0 (AD0) New Designator =PD3 (TXD1/INT3) New Name=28

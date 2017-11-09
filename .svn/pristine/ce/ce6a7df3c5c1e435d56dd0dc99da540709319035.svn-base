@@ -1,0 +1,58 @@
+Removed Pin From Net: NetName=SCK Pin=U?-29
+Removed Pin From Net: NetName=RCK Pin=U?-30
+Removed Pin From Net: NetName=C9 Pin=U?-31
+Removed Pin From Net: NetName=C8 Pin=U?-32
+Removed Pin From Net: NetName=C7 Pin=U?-35
+Removed Pin From Net: NetName=C6 Pin=U?-36
+Removed Pin From Net: NetName=C5 Pin=U?-37
+Removed Pin From Net: NetName=C4 Pin=U?-38
+Removed Pin From Net: NetName=C3 Pin=U?-39
+Removed Pin From Net: NetName=C2 Pin=U?-40
+Removed Pin From Net: NetName=C1 Pin=U?-41
+Removed Pin From Net: NetName=C0 Pin=U?-42
+Removed Pin From Net: NetName=L9 Pin=U?-44
+Removed Pin From Net: NetName=L8 Pin=U?-45
+Removed Pin From Net: NetName=L7 Pin=U?-46
+Removed Pin From Net: NetName=L6 Pin=U?-47
+Removed Pin From Net: NetName=L5 Pin=U?-48
+Removed Pin From Net: NetName=L4 Pin=U?-49
+Removed Pin From Net: NetName=L3 Pin=U?-50
+Removed Pin From Net: NetName=L2 Pin=U?-51
+Removed Pin From Net: NetName=L1 Pin=U?-60
+Removed Pin From Net: NetName=L0 Pin=U?-61
+Change Component Footprint: Designator=C1 Old Footprint=C1206 New Footprint=8-1206
+Change Component Footprint: Designator=C2 Old Footprint=C1206 New Footprint=8-1206
+Change Component Footprint: Designator=C3 Old Footprint=C1206 New Footprint=8-1206
+Change Component Footprint: Designator=C4 Old Footprint=C1206 New Footprint=8-1206
+Change Component Footprint: Designator=R1 Old Footprint=C1206 New Footprint=8-1206
+Change Component Footprint: Designator=R2 Old Footprint=C1206 New Footprint=8-1206
+Added Component: Designator=J?(PS2-6PIN)
+Added Component: Designator=R3(8-1206)
+Added Pin To Net: NetName=VTREF Pin=R3-1
+Added Pin To Net: NetName=NSRST Pin=R3-2
+Added Pin To Net: NetName=NSRST Pin=U?-20
+Added Pin To Net: NetName=SCK Pin=U?-31
+Added Pin To Net: NetName=RCK Pin=U?-32
+Added Pin To Net: NetName=L9 Pin=U?-33
+Added Pin To Net: NetName=L8 Pin=U?-34
+Added Pin To Net: NetName=L7 Pin=U?-35
+Added Pin To Net: NetName=L6 Pin=U?-36
+Added Pin To Net: NetName=L5 Pin=U?-37
+Added Pin To Net: NetName=L4 Pin=U?-38
+Added Pin To Net: NetName=L3 Pin=U?-39
+Added Pin To Net: NetName=L2 Pin=U?-40
+Added Pin To Net: NetName=L1 Pin=U?-41
+Added Pin To Net: NetName=L0 Pin=U?-42
+Added Pin To Net: NetName=C9 Pin=U?-44
+Added Pin To Net: NetName=C8 Pin=U?-45
+Added Pin To Net: NetName=C7 Pin=U?-46
+Added Pin To Net: NetName=C6 Pin=U?-47
+Added Pin To Net: NetName=C5 Pin=U?-48
+Added Pin To Net: NetName=C4 Pin=U?-49
+Added Pin To Net: NetName=C3 Pin=U?-50
+Added Pin To Net: NetName=C2 Pin=U?-51
+Added Pin To Net: NetName=C1 Pin=U?-60
+Added Pin To Net: NetName=C0 Pin=U?-61
+Change Net Name : Old Net Name=NSRST New Net Name=RESET
+Added Member To Class: ClassName=LED-kube-kontrollerkort_v0-0-1 Member=Component J? PS2-6PIN
+Added Member To Class: ClassName=LED-kube-kontrollerkort_v0-0-1 Member=Component R3 5k

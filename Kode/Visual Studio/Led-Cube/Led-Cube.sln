@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LED-Cube_10x10x10_output_2", "LED-Cube_10x10x10_output_2\LED-Cube_10x10x10_output_2.vcxproj", "{C2B354FC-2ADE-4218-82BD-E4C67040DB78}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Peak Meter", "Peak Meter\Peak Meter.vcxproj", "{9A383825-0701-4A29-A0A5-8402CB21CFFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2B354FC-2ADE-4218-82BD-E4C67040DB78}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C2B354FC-2ADE-4218-82BD-E4C67040DB78}.Debug|Win32.Build.0 = Debug|Win32
+		{C2B354FC-2ADE-4218-82BD-E4C67040DB78}.Release|Win32.ActiveCfg = Release|Win32
+		{C2B354FC-2ADE-4218-82BD-E4C67040DB78}.Release|Win32.Build.0 = Release|Win32
+		{9A383825-0701-4A29-A0A5-8402CB21CFFE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9A383825-0701-4A29-A0A5-8402CB21CFFE}.Debug|Win32.Build.0 = Debug|Win32
+		{9A383825-0701-4A29-A0A5-8402CB21CFFE}.Release|Win32.ActiveCfg = Release|Win32
+		{9A383825-0701-4A29-A0A5-8402CB21CFFE}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

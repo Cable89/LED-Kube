@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=GND Pin=J?-4
+Added Pin To Net: NetName=VTREF Pin=J?-5
+Added Pin To Net: NetName=GND Pin=J?-S

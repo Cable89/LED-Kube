@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.1</ProjectVersion>
+    <ProjectGuid>{ea2f189d-9571-4272-a243-6a61971f06e2}</ProjectGuid>
+    <avrdevice>AT90USB1287</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>Led_Cube-10x10x10-Red-v-0-1-4</AssemblyName>
+    <Name>Led_Cube-10x10x10-Red-v-0-1-4</Name>
+    <RootNamespace>Led_Cube-10x10x10-Red-v-0-1-4</RootNamespace>
+    <avrtool>com.atmel.avrdbg.tool.jtagicemk3</avrtool>
+    <com_atmel_avrdbg_tool_jtagicemkii>
+      <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
+      <ToolName>JTAGICE mkII</ToolName>
+      <ToolNumber>090000006B44</ToolNumber>
+      <Channel>
+        <host>127.0.0.1</host>
+        <port>5786</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions>
+        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>1000000</JtagDbgClock>
+          <JtagProgClock>1000000</JtagProgClock>
+          <IspClock>150000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemkii>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.8.1" />
+  </dependencies>
+</framework-data>
+    </AsfFrameworkConfig>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue />
+    <BootSegment>2</BootSegment>
+    <com_atmel_avrdbg_tool_jtagicemk3>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.jtagicemk3</ToolType>
+      <ToolName xmlns="">JTAGICE3</ToolName>
+      <ToolNumber xmlns="">J30200017536</ToolNumber>
+      <StimuliFile xmlns="">
+      </StimuliFile>
+      <Channel xmlns="">
+        <host>127.0.0.1</host>
+        <port>55117</port>
+        <ssl>False</ssl>
+      </Channel>
+      <ToolOptions xmlns="">
+        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceProperties>
+          <JtagDbgClock>7500000</JtagDbgClock>
+          <SwdClock>249000</SwdClock>
+          <JtagProgClock>7500000</JtagProgClock>
+          <IspClock>125000</IspClock>
+          <JtagInChain>false</JtagInChain>
+          <JtagEnableExtResetOnStartSession>false</JtagEnableExtResetOnStartSession>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+          <PdiClock>4000000</PdiClock>
+          <AWireMaxBaud>7500000</AWireMaxBaud>
+        </InterfaceProperties>
+      </ToolOptions>
+    </com_atmel_avrdbg_tool_jtagicemk3>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputFileName>Led_Cube-10x10x10-Red-v-0-1-4</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+</AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputFileName>Led_Cube-10x10x10-Red-v-0-1-4</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <ToolchainSettings>
+      <AvrGcc xmlns="">
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="cube.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="draw.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="draw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="effect.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="effect.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="font.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="font.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="snake.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="snake.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="usb.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
+</Project>

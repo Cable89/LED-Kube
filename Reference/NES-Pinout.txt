@@ -1,0 +1,5 @@
+1 - RED    - 5V
+2 - BROWN  - GND
+3 - BLACK  - STROBE
+4 - YELLOW - CLOCK
+5 - ORANGE - DATA

@@ -1,0 +1,2072 @@
+
+Led_Cube-10x10x10-Red-v-0-0-1.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000c4e  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          000000c9  00800060  00800060  00000cc2  2**0
+                  ALLOC
+  2 .stab         000006cc  00000000  00000000  00000cc4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  3 .stabstr      00000085  00000000  00000000  00001390  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_aranges 00000060  00000000  00000000  00001415  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_pubnames 0000017c  00000000  00000000  00001475  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000069f  00000000  00000000  000015f1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000242  00000000  00000000  00001c90  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000079f  00000000  00000000  00001ed2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000180  00000000  00000000  00002674  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000001d4  00000000  00000000  000027f4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_pubtypes 0000005b  00000000  00000000  000029c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 08 05 	jmp	0xa10	; 0xa10 <__vector_4>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	11 e0       	ldi	r17, 0x01	; 1
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a9 32       	cpi	r26, 0x29	; 41
+  6c:	b1 07       	cpc	r27, r17
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 fe 04 	call	0x9fc	; 0x9fc <main>
+  74:	0c 94 25 06 	jmp	0xc4a	; 0xc4a <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <inrange>:
+#include "cube.h"
+#include "draw.h"
+
+// Check if the coordinates are inside the cube.
+unsigned char inrange(int x, int y, int z)
+{
+  7c:	df 93       	push	r29
+  7e:	cf 93       	push	r28
+  80:	00 d0       	rcall	.+0      	; 0x82 <inrange+0x6>
+  82:	00 d0       	rcall	.+0      	; 0x84 <inrange+0x8>
+  84:	00 d0       	rcall	.+0      	; 0x86 <inrange+0xa>
+  86:	cd b7       	in	r28, 0x3d	; 61
+  88:	de b7       	in	r29, 0x3e	; 62
+  8a:	9a 83       	std	Y+2, r25	; 0x02
+  8c:	89 83       	std	Y+1, r24	; 0x01
+  8e:	7c 83       	std	Y+4, r23	; 0x04
+  90:	6b 83       	std	Y+3, r22	; 0x03
+  92:	5e 83       	std	Y+6, r21	; 0x06
+  94:	4d 83       	std	Y+5, r20	; 0x05
+	if (x>=0 && x<CUBE_SIZE && y>=0 && y<CUBE_SIZE && z>=0 && z<CUBE_SIZE)
+  96:	89 81       	ldd	r24, Y+1	; 0x01
+  98:	9a 81       	ldd	r25, Y+2	; 0x02
+  9a:	99 23       	and	r25, r25
+  9c:	cc f0       	brlt	.+50     	; 0xd0 <inrange+0x54>
+  9e:	89 81       	ldd	r24, Y+1	; 0x01
+  a0:	9a 81       	ldd	r25, Y+2	; 0x02
+  a2:	8a 30       	cpi	r24, 0x0A	; 10
+  a4:	91 05       	cpc	r25, r1
+  a6:	a4 f4       	brge	.+40     	; 0xd0 <inrange+0x54>
+  a8:	8b 81       	ldd	r24, Y+3	; 0x03
+  aa:	9c 81       	ldd	r25, Y+4	; 0x04
+  ac:	99 23       	and	r25, r25
+  ae:	84 f0       	brlt	.+32     	; 0xd0 <inrange+0x54>
+  b0:	8b 81       	ldd	r24, Y+3	; 0x03
+  b2:	9c 81       	ldd	r25, Y+4	; 0x04
+  b4:	8a 30       	cpi	r24, 0x0A	; 10
+  b6:	91 05       	cpc	r25, r1
+  b8:	5c f4       	brge	.+22     	; 0xd0 <inrange+0x54>
+  ba:	8d 81       	ldd	r24, Y+5	; 0x05
+  bc:	9e 81       	ldd	r25, Y+6	; 0x06
+  be:	99 23       	and	r25, r25
+  c0:	3c f0       	brlt	.+14     	; 0xd0 <inrange+0x54>
+  c2:	8d 81       	ldd	r24, Y+5	; 0x05
+  c4:	9e 81       	ldd	r25, Y+6	; 0x06
+  c6:	8a 30       	cpi	r24, 0x0A	; 10
+  c8:	91 05       	cpc	r25, r1
+  ca:	14 f4       	brge	.+4      	; 0xd0 <inrange+0x54>
+	{
+		return 1;
+  cc:	81 e0       	ldi	r24, 0x01	; 1
+  ce:	01 c0       	rjmp	.+2      	; 0xd2 <inrange+0x56>
+	} 
+	else
+	{
+		return 0; // Not inside.
+  d0:	80 e0       	ldi	r24, 0x00	; 0
+	}
+}
+  d2:	26 96       	adiw	r28, 0x06	; 6
+  d4:	0f b6       	in	r0, 0x3f	; 63
+  d6:	f8 94       	cli
+  d8:	de bf       	out	0x3e, r29	; 62
+  da:	0f be       	out	0x3f, r0	; 63
+  dc:	cd bf       	out	0x3d, r28	; 61
+  de:	cf 91       	pop	r28
+  e0:	df 91       	pop	r29
+  e2:	08 95       	ret
+
+000000e4 <set_voxel>:
+
+
+// Set a specific voxel
+void set_voxel(int x, int y,int z)
+{
+  e4:	df 93       	push	r29
+  e6:	cf 93       	push	r28
+  e8:	00 d0       	rcall	.+0      	; 0xea <set_voxel+0x6>
+  ea:	00 d0       	rcall	.+0      	; 0xec <set_voxel+0x8>
+  ec:	00 d0       	rcall	.+0      	; 0xee <set_voxel+0xa>
+  ee:	cd b7       	in	r28, 0x3d	; 61
+  f0:	de b7       	in	r29, 0x3e	; 62
+  f2:	9a 83       	std	Y+2, r25	; 0x02
+  f4:	89 83       	std	Y+1, r24	; 0x01
+  f6:	7c 83       	std	Y+4, r23	; 0x04
+  f8:	6b 83       	std	Y+3, r22	; 0x03
+  fa:	5e 83       	std	Y+6, r21	; 0x06
+  fc:	4d 83       	std	Y+5, r20	; 0x05
+	if (inrange(x,y,z))
+  fe:	89 81       	ldd	r24, Y+1	; 0x01
+ 100:	9a 81       	ldd	r25, Y+2	; 0x02
+ 102:	4b 81       	ldd	r20, Y+3	; 0x03
+ 104:	5c 81       	ldd	r21, Y+4	; 0x04
+ 106:	2d 81       	ldd	r18, Y+5	; 0x05
+ 108:	3e 81       	ldd	r19, Y+6	; 0x06
+ 10a:	ba 01       	movw	r22, r20
+ 10c:	a9 01       	movw	r20, r18
+ 10e:	0e 94 3e 00 	call	0x7c	; 0x7c <inrange>
+ 112:	88 23       	and	r24, r24
+ 114:	b1 f1       	breq	.+108    	; 0x182 <set_voxel+0x9e>
+	{
+		cube[z][y] |= (0x0001 << x);
+ 116:	8d 81       	ldd	r24, Y+5	; 0x05
+ 118:	9e 81       	ldd	r25, Y+6	; 0x06
+ 11a:	88 0f       	add	r24, r24
+ 11c:	99 1f       	adc	r25, r25
+ 11e:	9c 01       	movw	r18, r24
+ 120:	22 0f       	add	r18, r18
+ 122:	33 1f       	adc	r19, r19
+ 124:	22 0f       	add	r18, r18
+ 126:	33 1f       	adc	r19, r19
+ 128:	82 0f       	add	r24, r18
+ 12a:	93 1f       	adc	r25, r19
+ 12c:	2b 81       	ldd	r18, Y+3	; 0x03
+ 12e:	3c 81       	ldd	r19, Y+4	; 0x04
+ 130:	82 0f       	add	r24, r18
+ 132:	93 1f       	adc	r25, r19
+ 134:	88 0f       	add	r24, r24
+ 136:	99 1f       	adc	r25, r25
+ 138:	80 5a       	subi	r24, 0xA0	; 160
+ 13a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 13c:	fc 01       	movw	r30, r24
+ 13e:	20 81       	ld	r18, Z
+ 140:	31 81       	ldd	r19, Z+1	; 0x01
+ 142:	81 e0       	ldi	r24, 0x01	; 1
+ 144:	90 e0       	ldi	r25, 0x00	; 0
+ 146:	09 80       	ldd	r0, Y+1	; 0x01
+ 148:	02 c0       	rjmp	.+4      	; 0x14e <set_voxel+0x6a>
+ 14a:	88 0f       	add	r24, r24
+ 14c:	99 1f       	adc	r25, r25
+ 14e:	0a 94       	dec	r0
+ 150:	e2 f7       	brpl	.-8      	; 0x14a <set_voxel+0x66>
+ 152:	28 2b       	or	r18, r24
+ 154:	39 2b       	or	r19, r25
+ 156:	8d 81       	ldd	r24, Y+5	; 0x05
+ 158:	9e 81       	ldd	r25, Y+6	; 0x06
+ 15a:	88 0f       	add	r24, r24
+ 15c:	99 1f       	adc	r25, r25
+ 15e:	ac 01       	movw	r20, r24
+ 160:	44 0f       	add	r20, r20
+ 162:	55 1f       	adc	r21, r21
+ 164:	44 0f       	add	r20, r20
+ 166:	55 1f       	adc	r21, r21
+ 168:	84 0f       	add	r24, r20
+ 16a:	95 1f       	adc	r25, r21
+ 16c:	4b 81       	ldd	r20, Y+3	; 0x03
+ 16e:	5c 81       	ldd	r21, Y+4	; 0x04
+ 170:	84 0f       	add	r24, r20
+ 172:	95 1f       	adc	r25, r21
+ 174:	88 0f       	add	r24, r24
+ 176:	99 1f       	adc	r25, r25
+ 178:	80 5a       	subi	r24, 0xA0	; 160
+ 17a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 17c:	fc 01       	movw	r30, r24
+ 17e:	31 83       	std	Z+1, r19	; 0x01
+ 180:	20 83       	st	Z, r18
+	}
+}
+ 182:	26 96       	adiw	r28, 0x06	; 6
+ 184:	0f b6       	in	r0, 0x3f	; 63
+ 186:	f8 94       	cli
+ 188:	de bf       	out	0x3e, r29	; 62
+ 18a:	0f be       	out	0x3f, r0	; 63
+ 18c:	cd bf       	out	0x3d, r28	; 61
+ 18e:	cf 91       	pop	r28
+ 190:	df 91       	pop	r29
+ 192:	08 95       	ret
+
+00000194 <clr_voxel>:
+
+// Clear a specific voxel
+void clr_voxel(int x, int y, int z)
+{
+ 194:	df 93       	push	r29
+ 196:	cf 93       	push	r28
+ 198:	00 d0       	rcall	.+0      	; 0x19a <clr_voxel+0x6>
+ 19a:	00 d0       	rcall	.+0      	; 0x19c <clr_voxel+0x8>
+ 19c:	00 d0       	rcall	.+0      	; 0x19e <clr_voxel+0xa>
+ 19e:	cd b7       	in	r28, 0x3d	; 61
+ 1a0:	de b7       	in	r29, 0x3e	; 62
+ 1a2:	9a 83       	std	Y+2, r25	; 0x02
+ 1a4:	89 83       	std	Y+1, r24	; 0x01
+ 1a6:	7c 83       	std	Y+4, r23	; 0x04
+ 1a8:	6b 83       	std	Y+3, r22	; 0x03
+ 1aa:	5e 83       	std	Y+6, r21	; 0x06
+ 1ac:	4d 83       	std	Y+5, r20	; 0x05
+	if (inrange(x,y,z))
+ 1ae:	89 81       	ldd	r24, Y+1	; 0x01
+ 1b0:	9a 81       	ldd	r25, Y+2	; 0x02
+ 1b2:	4b 81       	ldd	r20, Y+3	; 0x03
+ 1b4:	5c 81       	ldd	r21, Y+4	; 0x04
+ 1b6:	2d 81       	ldd	r18, Y+5	; 0x05
+ 1b8:	3e 81       	ldd	r19, Y+6	; 0x06
+ 1ba:	ba 01       	movw	r22, r20
+ 1bc:	a9 01       	movw	r20, r18
+ 1be:	0e 94 3e 00 	call	0x7c	; 0x7c <inrange>
+ 1c2:	88 23       	and	r24, r24
+ 1c4:	c1 f1       	breq	.+112    	; 0x236 <clr_voxel+0xa2>
+	{
+		cube[z][y] &= ~(0x0001 << x);
+ 1c6:	8d 81       	ldd	r24, Y+5	; 0x05
+ 1c8:	9e 81       	ldd	r25, Y+6	; 0x06
+ 1ca:	88 0f       	add	r24, r24
+ 1cc:	99 1f       	adc	r25, r25
+ 1ce:	9c 01       	movw	r18, r24
+ 1d0:	22 0f       	add	r18, r18
+ 1d2:	33 1f       	adc	r19, r19
+ 1d4:	22 0f       	add	r18, r18
+ 1d6:	33 1f       	adc	r19, r19
+ 1d8:	82 0f       	add	r24, r18
+ 1da:	93 1f       	adc	r25, r19
+ 1dc:	2b 81       	ldd	r18, Y+3	; 0x03
+ 1de:	3c 81       	ldd	r19, Y+4	; 0x04
+ 1e0:	82 0f       	add	r24, r18
+ 1e2:	93 1f       	adc	r25, r19
+ 1e4:	88 0f       	add	r24, r24
+ 1e6:	99 1f       	adc	r25, r25
+ 1e8:	80 5a       	subi	r24, 0xA0	; 160
+ 1ea:	9f 4f       	sbci	r25, 0xFF	; 255
+ 1ec:	fc 01       	movw	r30, r24
+ 1ee:	20 81       	ld	r18, Z
+ 1f0:	31 81       	ldd	r19, Z+1	; 0x01
+ 1f2:	81 e0       	ldi	r24, 0x01	; 1
+ 1f4:	90 e0       	ldi	r25, 0x00	; 0
+ 1f6:	09 80       	ldd	r0, Y+1	; 0x01
+ 1f8:	02 c0       	rjmp	.+4      	; 0x1fe <clr_voxel+0x6a>
+ 1fa:	88 0f       	add	r24, r24
+ 1fc:	99 1f       	adc	r25, r25
+ 1fe:	0a 94       	dec	r0
+ 200:	e2 f7       	brpl	.-8      	; 0x1fa <clr_voxel+0x66>
+ 202:	80 95       	com	r24
+ 204:	90 95       	com	r25
+ 206:	28 23       	and	r18, r24
+ 208:	39 23       	and	r19, r25
+ 20a:	8d 81       	ldd	r24, Y+5	; 0x05
+ 20c:	9e 81       	ldd	r25, Y+6	; 0x06
+ 20e:	88 0f       	add	r24, r24
+ 210:	99 1f       	adc	r25, r25
+ 212:	ac 01       	movw	r20, r24
+ 214:	44 0f       	add	r20, r20
+ 216:	55 1f       	adc	r21, r21
+ 218:	44 0f       	add	r20, r20
+ 21a:	55 1f       	adc	r21, r21
+ 21c:	84 0f       	add	r24, r20
+ 21e:	95 1f       	adc	r25, r21
+ 220:	4b 81       	ldd	r20, Y+3	; 0x03
+ 222:	5c 81       	ldd	r21, Y+4	; 0x04
+ 224:	84 0f       	add	r24, r20
+ 226:	95 1f       	adc	r25, r21
+ 228:	88 0f       	add	r24, r24
+ 22a:	99 1f       	adc	r25, r25
+ 22c:	80 5a       	subi	r24, 0xA0	; 160
+ 22e:	9f 4f       	sbci	r25, 0xFF	; 255
+ 230:	fc 01       	movw	r30, r24
+ 232:	31 83       	std	Z+1, r19	; 0x01
+ 234:	20 83       	st	Z, r18
+	}
+}
+ 236:	26 96       	adiw	r28, 0x06	; 6
+ 238:	0f b6       	in	r0, 0x3f	; 63
+ 23a:	f8 94       	cli
+ 23c:	de bf       	out	0x3e, r29	; 62
+ 23e:	0f be       	out	0x3f, r0	; 63
+ 240:	cd bf       	out	0x3d, r28	; 61
+ 242:	cf 91       	pop	r28
+ 244:	df 91       	pop	r29
+ 246:	08 95       	ret
+
+00000248 <getvoxel>:
+
+// Get the current status of a voxel
+unsigned char getvoxel(int x, int y, int z)
+{
+ 248:	df 93       	push	r29
+ 24a:	cf 93       	push	r28
+ 24c:	00 d0       	rcall	.+0      	; 0x24e <getvoxel+0x6>
+ 24e:	00 d0       	rcall	.+0      	; 0x250 <getvoxel+0x8>
+ 250:	00 d0       	rcall	.+0      	; 0x252 <getvoxel+0xa>
+ 252:	cd b7       	in	r28, 0x3d	; 61
+ 254:	de b7       	in	r29, 0x3e	; 62
+ 256:	9a 83       	std	Y+2, r25	; 0x02
+ 258:	89 83       	std	Y+1, r24	; 0x01
+ 25a:	7c 83       	std	Y+4, r23	; 0x04
+ 25c:	6b 83       	std	Y+3, r22	; 0x03
+ 25e:	5e 83       	std	Y+6, r21	; 0x06
+ 260:	4d 83       	std	Y+5, r20	; 0x05
+	if (inrange(x,y,z))
+ 262:	89 81       	ldd	r24, Y+1	; 0x01
+ 264:	9a 81       	ldd	r25, Y+2	; 0x02
+ 266:	4b 81       	ldd	r20, Y+3	; 0x03
+ 268:	5c 81       	ldd	r21, Y+4	; 0x04
+ 26a:	2d 81       	ldd	r18, Y+5	; 0x05
+ 26c:	3e 81       	ldd	r19, Y+6	; 0x06
+ 26e:	ba 01       	movw	r22, r20
+ 270:	a9 01       	movw	r20, r18
+ 272:	0e 94 3e 00 	call	0x7c	; 0x7c <inrange>
+ 276:	88 23       	and	r24, r24
+ 278:	31 f1       	breq	.+76     	; 0x2c6 <getvoxel+0x7e>
+	{
+		if (cube[z][y] & (1 << x))
+ 27a:	8d 81       	ldd	r24, Y+5	; 0x05
+ 27c:	9e 81       	ldd	r25, Y+6	; 0x06
+ 27e:	88 0f       	add	r24, r24
+ 280:	99 1f       	adc	r25, r25
+ 282:	9c 01       	movw	r18, r24
+ 284:	22 0f       	add	r18, r18
+ 286:	33 1f       	adc	r19, r19
+ 288:	22 0f       	add	r18, r18
+ 28a:	33 1f       	adc	r19, r19
+ 28c:	82 0f       	add	r24, r18
+ 28e:	93 1f       	adc	r25, r19
+ 290:	2b 81       	ldd	r18, Y+3	; 0x03
+ 292:	3c 81       	ldd	r19, Y+4	; 0x04
+ 294:	82 0f       	add	r24, r18
+ 296:	93 1f       	adc	r25, r19
+ 298:	88 0f       	add	r24, r24
+ 29a:	99 1f       	adc	r25, r25
+ 29c:	80 5a       	subi	r24, 0xA0	; 160
+ 29e:	9f 4f       	sbci	r25, 0xFF	; 255
+ 2a0:	fc 01       	movw	r30, r24
+ 2a2:	20 81       	ld	r18, Z
+ 2a4:	31 81       	ldd	r19, Z+1	; 0x01
+ 2a6:	81 e0       	ldi	r24, 0x01	; 1
+ 2a8:	90 e0       	ldi	r25, 0x00	; 0
+ 2aa:	09 80       	ldd	r0, Y+1	; 0x01
+ 2ac:	02 c0       	rjmp	.+4      	; 0x2b2 <getvoxel+0x6a>
+ 2ae:	88 0f       	add	r24, r24
+ 2b0:	99 1f       	adc	r25, r25
+ 2b2:	0a 94       	dec	r0
+ 2b4:	e2 f7       	brpl	.-8      	; 0x2ae <getvoxel+0x66>
+ 2b6:	82 23       	and	r24, r18
+ 2b8:	93 23       	and	r25, r19
+ 2ba:	00 97       	sbiw	r24, 0x00	; 0
+ 2bc:	11 f0       	breq	.+4      	; 0x2c2 <getvoxel+0x7a>
+		{
+			return 1;
+ 2be:	81 e0       	ldi	r24, 0x01	; 1
+ 2c0:	03 c0       	rjmp	.+6      	; 0x2c8 <getvoxel+0x80>
+		}
+		else
+		{
+			return 0;
+ 2c2:	80 e0       	ldi	r24, 0x00	; 0
+ 2c4:	01 c0       	rjmp	.+2      	; 0x2c8 <getvoxel+0x80>
+		}
+	}
+	else
+	{
+		return 0;
+ 2c6:	80 e0       	ldi	r24, 0x00	; 0
+	}		
+}
+ 2c8:	26 96       	adiw	r28, 0x06	; 6
+ 2ca:	0f b6       	in	r0, 0x3f	; 63
+ 2cc:	f8 94       	cli
+ 2ce:	de bf       	out	0x3e, r29	; 62
+ 2d0:	0f be       	out	0x3f, r0	; 63
+ 2d2:	cd bf       	out	0x3d, r28	; 61
+ 2d4:	cf 91       	pop	r28
+ 2d6:	df 91       	pop	r29
+ 2d8:	08 95       	ret
+
+000002da <altervoxel>:
+
+// Alter the state of a voxel with a bool value
+void altervoxel(int x, int y, int z, int state)
+{
+ 2da:	df 93       	push	r29
+ 2dc:	cf 93       	push	r28
+ 2de:	cd b7       	in	r28, 0x3d	; 61
+ 2e0:	de b7       	in	r29, 0x3e	; 62
+ 2e2:	28 97       	sbiw	r28, 0x08	; 8
+ 2e4:	0f b6       	in	r0, 0x3f	; 63
+ 2e6:	f8 94       	cli
+ 2e8:	de bf       	out	0x3e, r29	; 62
+ 2ea:	0f be       	out	0x3f, r0	; 63
+ 2ec:	cd bf       	out	0x3d, r28	; 61
+ 2ee:	9a 83       	std	Y+2, r25	; 0x02
+ 2f0:	89 83       	std	Y+1, r24	; 0x01
+ 2f2:	7c 83       	std	Y+4, r23	; 0x04
+ 2f4:	6b 83       	std	Y+3, r22	; 0x03
+ 2f6:	5e 83       	std	Y+6, r21	; 0x06
+ 2f8:	4d 83       	std	Y+5, r20	; 0x05
+ 2fa:	38 87       	std	Y+8, r19	; 0x08
+ 2fc:	2f 83       	std	Y+7, r18	; 0x07
+	if (inrange(x,y,z))
+ 2fe:	89 81       	ldd	r24, Y+1	; 0x01
+ 300:	9a 81       	ldd	r25, Y+2	; 0x02
+ 302:	4b 81       	ldd	r20, Y+3	; 0x03
+ 304:	5c 81       	ldd	r21, Y+4	; 0x04
+ 306:	2d 81       	ldd	r18, Y+5	; 0x05
+ 308:	3e 81       	ldd	r19, Y+6	; 0x06
+ 30a:	ba 01       	movw	r22, r20
+ 30c:	a9 01       	movw	r20, r18
+ 30e:	0e 94 3e 00 	call	0x7c	; 0x7c <inrange>
+ 312:	88 23       	and	r24, r24
+ 314:	d1 f0       	breq	.+52     	; 0x34a <altervoxel+0x70>
+	{
+		if (state == 1)
+ 316:	8f 81       	ldd	r24, Y+7	; 0x07
+ 318:	98 85       	ldd	r25, Y+8	; 0x08
+ 31a:	81 30       	cpi	r24, 0x01	; 1
+ 31c:	91 05       	cpc	r25, r1
+ 31e:	59 f4       	brne	.+22     	; 0x336 <altervoxel+0x5c>
+		{
+			set_voxel(x,y,z);
+ 320:	89 81       	ldd	r24, Y+1	; 0x01
+ 322:	9a 81       	ldd	r25, Y+2	; 0x02
+ 324:	4b 81       	ldd	r20, Y+3	; 0x03
+ 326:	5c 81       	ldd	r21, Y+4	; 0x04
+ 328:	2d 81       	ldd	r18, Y+5	; 0x05
+ 32a:	3e 81       	ldd	r19, Y+6	; 0x06
+ 32c:	ba 01       	movw	r22, r20
+ 32e:	a9 01       	movw	r20, r18
+ 330:	0e 94 72 00 	call	0xe4	; 0xe4 <set_voxel>
+ 334:	0a c0       	rjmp	.+20     	; 0x34a <altervoxel+0x70>
+		} 
+		else
+		{
+			clr_voxel(x,y,z);
+ 336:	89 81       	ldd	r24, Y+1	; 0x01
+ 338:	9a 81       	ldd	r25, Y+2	; 0x02
+ 33a:	4b 81       	ldd	r20, Y+3	; 0x03
+ 33c:	5c 81       	ldd	r21, Y+4	; 0x04
+ 33e:	2d 81       	ldd	r18, Y+5	; 0x05
+ 340:	3e 81       	ldd	r19, Y+6	; 0x06
+ 342:	ba 01       	movw	r22, r20
+ 344:	a9 01       	movw	r20, r18
+ 346:	0e 94 ca 00 	call	0x194	; 0x194 <clr_voxel>
+		}
+	}
+}
+ 34a:	28 96       	adiw	r28, 0x08	; 8
+ 34c:	0f b6       	in	r0, 0x3f	; 63
+ 34e:	f8 94       	cli
+ 350:	de bf       	out	0x3e, r29	; 62
+ 352:	0f be       	out	0x3f, r0	; 63
+ 354:	cd bf       	out	0x3d, r28	; 61
+ 356:	cf 91       	pop	r28
+ 358:	df 91       	pop	r29
+ 35a:	08 95       	ret
+
+0000035c <flipvoxel>:
+
+// Flip a voxel
+void flipvoxel(int x, int y, int z)
+{
+ 35c:	df 93       	push	r29
+ 35e:	cf 93       	push	r28
+ 360:	00 d0       	rcall	.+0      	; 0x362 <flipvoxel+0x6>
+ 362:	00 d0       	rcall	.+0      	; 0x364 <flipvoxel+0x8>
+ 364:	00 d0       	rcall	.+0      	; 0x366 <flipvoxel+0xa>
+ 366:	cd b7       	in	r28, 0x3d	; 61
+ 368:	de b7       	in	r29, 0x3e	; 62
+ 36a:	9a 83       	std	Y+2, r25	; 0x02
+ 36c:	89 83       	std	Y+1, r24	; 0x01
+ 36e:	7c 83       	std	Y+4, r23	; 0x04
+ 370:	6b 83       	std	Y+3, r22	; 0x03
+ 372:	5e 83       	std	Y+6, r21	; 0x06
+ 374:	4d 83       	std	Y+5, r20	; 0x05
+	if (inrange(x,y,z))
+ 376:	89 81       	ldd	r24, Y+1	; 0x01
+ 378:	9a 81       	ldd	r25, Y+2	; 0x02
+ 37a:	4b 81       	ldd	r20, Y+3	; 0x03
+ 37c:	5c 81       	ldd	r21, Y+4	; 0x04
+ 37e:	2d 81       	ldd	r18, Y+5	; 0x05
+ 380:	3e 81       	ldd	r19, Y+6	; 0x06
+ 382:	ba 01       	movw	r22, r20
+ 384:	a9 01       	movw	r20, r18
+ 386:	0e 94 3e 00 	call	0x7c	; 0x7c <inrange>
+ 38a:	88 23       	and	r24, r24
+ 38c:	b1 f1       	breq	.+108    	; 0x3fa <flipvoxel+0x9e>
+	{
+		cube[z][y] ^= (1 << x);
+ 38e:	8d 81       	ldd	r24, Y+5	; 0x05
+ 390:	9e 81       	ldd	r25, Y+6	; 0x06
+ 392:	88 0f       	add	r24, r24
+ 394:	99 1f       	adc	r25, r25
+ 396:	9c 01       	movw	r18, r24
+ 398:	22 0f       	add	r18, r18
+ 39a:	33 1f       	adc	r19, r19
+ 39c:	22 0f       	add	r18, r18
+ 39e:	33 1f       	adc	r19, r19
+ 3a0:	82 0f       	add	r24, r18
+ 3a2:	93 1f       	adc	r25, r19
+ 3a4:	2b 81       	ldd	r18, Y+3	; 0x03
+ 3a6:	3c 81       	ldd	r19, Y+4	; 0x04
+ 3a8:	82 0f       	add	r24, r18
+ 3aa:	93 1f       	adc	r25, r19
+ 3ac:	88 0f       	add	r24, r24
+ 3ae:	99 1f       	adc	r25, r25
+ 3b0:	80 5a       	subi	r24, 0xA0	; 160
+ 3b2:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3b4:	fc 01       	movw	r30, r24
+ 3b6:	20 81       	ld	r18, Z
+ 3b8:	31 81       	ldd	r19, Z+1	; 0x01
+ 3ba:	81 e0       	ldi	r24, 0x01	; 1
+ 3bc:	90 e0       	ldi	r25, 0x00	; 0
+ 3be:	09 80       	ldd	r0, Y+1	; 0x01
+ 3c0:	02 c0       	rjmp	.+4      	; 0x3c6 <flipvoxel+0x6a>
+ 3c2:	88 0f       	add	r24, r24
+ 3c4:	99 1f       	adc	r25, r25
+ 3c6:	0a 94       	dec	r0
+ 3c8:	e2 f7       	brpl	.-8      	; 0x3c2 <flipvoxel+0x66>
+ 3ca:	28 27       	eor	r18, r24
+ 3cc:	39 27       	eor	r19, r25
+ 3ce:	8d 81       	ldd	r24, Y+5	; 0x05
+ 3d0:	9e 81       	ldd	r25, Y+6	; 0x06
+ 3d2:	88 0f       	add	r24, r24
+ 3d4:	99 1f       	adc	r25, r25
+ 3d6:	ac 01       	movw	r20, r24
+ 3d8:	44 0f       	add	r20, r20
+ 3da:	55 1f       	adc	r21, r21
+ 3dc:	44 0f       	add	r20, r20
+ 3de:	55 1f       	adc	r21, r21
+ 3e0:	84 0f       	add	r24, r20
+ 3e2:	95 1f       	adc	r25, r21
+ 3e4:	4b 81       	ldd	r20, Y+3	; 0x03
+ 3e6:	5c 81       	ldd	r21, Y+4	; 0x04
+ 3e8:	84 0f       	add	r24, r20
+ 3ea:	95 1f       	adc	r25, r21
+ 3ec:	88 0f       	add	r24, r24
+ 3ee:	99 1f       	adc	r25, r25
+ 3f0:	80 5a       	subi	r24, 0xA0	; 160
+ 3f2:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3f4:	fc 01       	movw	r30, r24
+ 3f6:	31 83       	std	Z+1, r19	; 0x01
+ 3f8:	20 83       	st	Z, r18
+	}
+}
+ 3fa:	26 96       	adiw	r28, 0x06	; 6
+ 3fc:	0f b6       	in	r0, 0x3f	; 63
+ 3fe:	f8 94       	cli
+ 400:	de bf       	out	0x3e, r29	; 62
+ 402:	0f be       	out	0x3f, r0	; 63
+ 404:	cd bf       	out	0x3d, r28	; 61
+ 406:	cf 91       	pop	r28
+ 408:	df 91       	pop	r29
+ 40a:	08 95       	ret
+
+0000040c <setplane>:
+
+// Set a specific plane along a specific axis
+void setplane (char axis, unsigned char i)
+{
+ 40c:	df 93       	push	r29
+ 40e:	cf 93       	push	r28
+ 410:	00 d0       	rcall	.+0      	; 0x412 <setplane+0x6>
+ 412:	cd b7       	in	r28, 0x3d	; 61
+ 414:	de b7       	in	r29, 0x3e	; 62
+ 416:	89 83       	std	Y+1, r24	; 0x01
+ 418:	6a 83       	std	Y+2, r22	; 0x02
+	switch (axis)
+ 41a:	89 81       	ldd	r24, Y+1	; 0x01
+ 41c:	88 2f       	mov	r24, r24
+ 41e:	90 e0       	ldi	r25, 0x00	; 0
+ 420:	89 37       	cpi	r24, 0x79	; 121
+ 422:	91 05       	cpc	r25, r1
+ 424:	61 f0       	breq	.+24     	; 0x43e <setplane+0x32>
+ 426:	8a 37       	cpi	r24, 0x7A	; 122
+ 428:	91 05       	cpc	r25, r1
+ 42a:	79 f0       	breq	.+30     	; 0x44a <setplane+0x3e>
+ 42c:	88 37       	cpi	r24, 0x78	; 120
+ 42e:	91 05       	cpc	r25, r1
+ 430:	91 f4       	brne	.+36     	; 0x456 <setplane+0x4a>
+	{
+		case AXIS_X:
+			setplane_x(i);
+ 432:	8a 81       	ldd	r24, Y+2	; 0x02
+ 434:	88 2f       	mov	r24, r24
+ 436:	90 e0       	ldi	r25, 0x00	; 0
+ 438:	0e 94 5a 02 	call	0x4b4	; 0x4b4 <setplane_x>
+			break;
+ 43c:	0c c0       	rjmp	.+24     	; 0x456 <setplane+0x4a>
+		case AXIS_Y:
+			setplane_y(i);
+ 43e:	8a 81       	ldd	r24, Y+2	; 0x02
+ 440:	88 2f       	mov	r24, r24
+ 442:	90 e0       	ldi	r25, 0x00	; 0
+ 444:	0e 94 38 03 	call	0x670	; 0x670 <setplane_y>
+			break;
+ 448:	06 c0       	rjmp	.+12     	; 0x456 <setplane+0x4a>
+		case AXIS_Z:
+			setplane_z(i);
+ 44a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 44c:	88 2f       	mov	r24, r24
+ 44e:	90 e0       	ldi	r25, 0x00	; 0
+ 450:	0e 94 b0 03 	call	0x760	; 0x760 <setplane_z>
+			break;
+ 454:	00 00       	nop
+	}
+	
+}
+ 456:	0f 90       	pop	r0
+ 458:	0f 90       	pop	r0
+ 45a:	cf 91       	pop	r28
+ 45c:	df 91       	pop	r29
+ 45e:	08 95       	ret
+
+00000460 <clrplane>:
+
+// Clear a specific plane along a specific axis
+void clrplane (char axis, unsigned char i)
+{
+ 460:	df 93       	push	r29
+ 462:	cf 93       	push	r28
+ 464:	00 d0       	rcall	.+0      	; 0x466 <clrplane+0x6>
+ 466:	cd b7       	in	r28, 0x3d	; 61
+ 468:	de b7       	in	r29, 0x3e	; 62
+ 46a:	89 83       	std	Y+1, r24	; 0x01
+ 46c:	6a 83       	std	Y+2, r22	; 0x02
+	switch (axis)
+ 46e:	89 81       	ldd	r24, Y+1	; 0x01
+ 470:	88 2f       	mov	r24, r24
+ 472:	90 e0       	ldi	r25, 0x00	; 0
+ 474:	89 37       	cpi	r24, 0x79	; 121
+ 476:	91 05       	cpc	r25, r1
+ 478:	61 f0       	breq	.+24     	; 0x492 <clrplane+0x32>
+ 47a:	8a 37       	cpi	r24, 0x7A	; 122
+ 47c:	91 05       	cpc	r25, r1
+ 47e:	79 f0       	breq	.+30     	; 0x49e <clrplane+0x3e>
+ 480:	88 37       	cpi	r24, 0x78	; 120
+ 482:	91 05       	cpc	r25, r1
+ 484:	91 f4       	brne	.+36     	; 0x4aa <clrplane+0x4a>
+	{
+		case AXIS_X:
+			clrplane_x(i);
+ 486:	8a 81       	ldd	r24, Y+2	; 0x02
+ 488:	88 2f       	mov	r24, r24
+ 48a:	90 e0       	ldi	r25, 0x00	; 0
+ 48c:	0e 94 c9 02 	call	0x592	; 0x592 <clrplane_x>
+			break;
+ 490:	0c c0       	rjmp	.+24     	; 0x4aa <clrplane+0x4a>
+		case AXIS_Y:
+			clrplane_y(i);
+ 492:	8a 81       	ldd	r24, Y+2	; 0x02
+ 494:	88 2f       	mov	r24, r24
+ 496:	90 e0       	ldi	r25, 0x00	; 0
+ 498:	0e 94 75 03 	call	0x6ea	; 0x6ea <clrplane_y>
+			break;
+ 49c:	06 c0       	rjmp	.+12     	; 0x4aa <clrplane+0x4a>
+		case AXIS_Z:
+			clrplane_z(i);
+ 49e:	8a 81       	ldd	r24, Y+2	; 0x02
+ 4a0:	88 2f       	mov	r24, r24
+ 4a2:	90 e0       	ldi	r25, 0x00	; 0
+ 4a4:	0e 94 ed 03 	call	0x7da	; 0x7da <clrplane_z>
+			break;
+ 4a8:	00 00       	nop
+	}
+	
+}
+ 4aa:	0f 90       	pop	r0
+ 4ac:	0f 90       	pop	r0
+ 4ae:	cf 91       	pop	r28
+ 4b0:	df 91       	pop	r29
+ 4b2:	08 95       	ret
+
+000004b4 <setplane_x>:
+
+
+// Set a specific plane along the X-axis
+void setplane_x(int x)
+{
+ 4b4:	df 93       	push	r29
+ 4b6:	cf 93       	push	r28
+ 4b8:	00 d0       	rcall	.+0      	; 0x4ba <setplane_x+0x6>
+ 4ba:	00 d0       	rcall	.+0      	; 0x4bc <setplane_x+0x8>
+ 4bc:	00 d0       	rcall	.+0      	; 0x4be <setplane_x+0xa>
+ 4be:	cd b7       	in	r28, 0x3d	; 61
+ 4c0:	de b7       	in	r29, 0x3e	; 62
+ 4c2:	9e 83       	std	Y+6, r25	; 0x06
+ 4c4:	8d 83       	std	Y+5, r24	; 0x05
+	int y;
+	int z;
+	if (x>=0 && x<CUBE_SIZE)
+ 4c6:	8d 81       	ldd	r24, Y+5	; 0x05
+ 4c8:	9e 81       	ldd	r25, Y+6	; 0x06
+ 4ca:	99 23       	and	r25, r25
+ 4cc:	0c f4       	brge	.+2      	; 0x4d0 <setplane_x+0x1c>
+ 4ce:	58 c0       	rjmp	.+176    	; 0x580 <setplane_x+0xcc>
+ 4d0:	8d 81       	ldd	r24, Y+5	; 0x05
+ 4d2:	9e 81       	ldd	r25, Y+6	; 0x06
+ 4d4:	8a 30       	cpi	r24, 0x0A	; 10
+ 4d6:	91 05       	cpc	r25, r1
+ 4d8:	0c f0       	brlt	.+2      	; 0x4dc <setplane_x+0x28>
+ 4da:	52 c0       	rjmp	.+164    	; 0x580 <setplane_x+0xcc>
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 4dc:	1a 82       	std	Y+2, r1	; 0x02
+ 4de:	19 82       	std	Y+1, r1	; 0x01
+ 4e0:	49 c0       	rjmp	.+146    	; 0x574 <setplane_x+0xc0>
+		{
+			for (z=0; z<CUBE_SIZE; z++)
+ 4e2:	1c 82       	std	Y+4, r1	; 0x04
+ 4e4:	1b 82       	std	Y+3, r1	; 0x03
+ 4e6:	3b c0       	rjmp	.+118    	; 0x55e <setplane_x+0xaa>
+			{
+				cube[z][y] |= (1 << x);
+ 4e8:	8b 81       	ldd	r24, Y+3	; 0x03
+ 4ea:	9c 81       	ldd	r25, Y+4	; 0x04
+ 4ec:	88 0f       	add	r24, r24
+ 4ee:	99 1f       	adc	r25, r25
+ 4f0:	9c 01       	movw	r18, r24
+ 4f2:	22 0f       	add	r18, r18
+ 4f4:	33 1f       	adc	r19, r19
+ 4f6:	22 0f       	add	r18, r18
+ 4f8:	33 1f       	adc	r19, r19
+ 4fa:	82 0f       	add	r24, r18
+ 4fc:	93 1f       	adc	r25, r19
+ 4fe:	29 81       	ldd	r18, Y+1	; 0x01
+ 500:	3a 81       	ldd	r19, Y+2	; 0x02
+ 502:	82 0f       	add	r24, r18
+ 504:	93 1f       	adc	r25, r19
+ 506:	88 0f       	add	r24, r24
+ 508:	99 1f       	adc	r25, r25
+ 50a:	80 5a       	subi	r24, 0xA0	; 160
+ 50c:	9f 4f       	sbci	r25, 0xFF	; 255
+ 50e:	fc 01       	movw	r30, r24
+ 510:	20 81       	ld	r18, Z
+ 512:	31 81       	ldd	r19, Z+1	; 0x01
+ 514:	81 e0       	ldi	r24, 0x01	; 1
+ 516:	90 e0       	ldi	r25, 0x00	; 0
+ 518:	0d 80       	ldd	r0, Y+5	; 0x05
+ 51a:	02 c0       	rjmp	.+4      	; 0x520 <setplane_x+0x6c>
+ 51c:	88 0f       	add	r24, r24
+ 51e:	99 1f       	adc	r25, r25
+ 520:	0a 94       	dec	r0
+ 522:	e2 f7       	brpl	.-8      	; 0x51c <setplane_x+0x68>
+ 524:	28 2b       	or	r18, r24
+ 526:	39 2b       	or	r19, r25
+ 528:	8b 81       	ldd	r24, Y+3	; 0x03
+ 52a:	9c 81       	ldd	r25, Y+4	; 0x04
+ 52c:	88 0f       	add	r24, r24
+ 52e:	99 1f       	adc	r25, r25
+ 530:	ac 01       	movw	r20, r24
+ 532:	44 0f       	add	r20, r20
+ 534:	55 1f       	adc	r21, r21
+ 536:	44 0f       	add	r20, r20
+ 538:	55 1f       	adc	r21, r21
+ 53a:	84 0f       	add	r24, r20
+ 53c:	95 1f       	adc	r25, r21
+ 53e:	49 81       	ldd	r20, Y+1	; 0x01
+ 540:	5a 81       	ldd	r21, Y+2	; 0x02
+ 542:	84 0f       	add	r24, r20
+ 544:	95 1f       	adc	r25, r21
+ 546:	88 0f       	add	r24, r24
+ 548:	99 1f       	adc	r25, r25
+ 54a:	80 5a       	subi	r24, 0xA0	; 160
+ 54c:	9f 4f       	sbci	r25, 0xFF	; 255
+ 54e:	fc 01       	movw	r30, r24
+ 550:	31 83       	std	Z+1, r19	; 0x01
+ 552:	20 83       	st	Z, r18
+	int z;
+	if (x>=0 && x<CUBE_SIZE)
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+		{
+			for (z=0; z<CUBE_SIZE; z++)
+ 554:	8b 81       	ldd	r24, Y+3	; 0x03
+ 556:	9c 81       	ldd	r25, Y+4	; 0x04
+ 558:	01 96       	adiw	r24, 0x01	; 1
+ 55a:	9c 83       	std	Y+4, r25	; 0x04
+ 55c:	8b 83       	std	Y+3, r24	; 0x03
+ 55e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 560:	9c 81       	ldd	r25, Y+4	; 0x04
+ 562:	8a 30       	cpi	r24, 0x0A	; 10
+ 564:	91 05       	cpc	r25, r1
+ 566:	0c f4       	brge	.+2      	; 0x56a <setplane_x+0xb6>
+ 568:	bf cf       	rjmp	.-130    	; 0x4e8 <setplane_x+0x34>
+{
+	int y;
+	int z;
+	if (x>=0 && x<CUBE_SIZE)
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 56a:	89 81       	ldd	r24, Y+1	; 0x01
+ 56c:	9a 81       	ldd	r25, Y+2	; 0x02
+ 56e:	01 96       	adiw	r24, 0x01	; 1
+ 570:	9a 83       	std	Y+2, r25	; 0x02
+ 572:	89 83       	std	Y+1, r24	; 0x01
+ 574:	89 81       	ldd	r24, Y+1	; 0x01
+ 576:	9a 81       	ldd	r25, Y+2	; 0x02
+ 578:	8a 30       	cpi	r24, 0x0A	; 10
+ 57a:	91 05       	cpc	r25, r1
+ 57c:	0c f4       	brge	.+2      	; 0x580 <setplane_x+0xcc>
+ 57e:	b1 cf       	rjmp	.-158    	; 0x4e2 <setplane_x+0x2e>
+			{
+				cube[z][y] |= (1 << x);
+			}
+		}
+	}
+}
+ 580:	26 96       	adiw	r28, 0x06	; 6
+ 582:	0f b6       	in	r0, 0x3f	; 63
+ 584:	f8 94       	cli
+ 586:	de bf       	out	0x3e, r29	; 62
+ 588:	0f be       	out	0x3f, r0	; 63
+ 58a:	cd bf       	out	0x3d, r28	; 61
+ 58c:	cf 91       	pop	r28
+ 58e:	df 91       	pop	r29
+ 590:	08 95       	ret
+
+00000592 <clrplane_x>:
+
+// Clear a specific plane along the X-axis
+void clrplane_x(int x)
+{
+ 592:	df 93       	push	r29
+ 594:	cf 93       	push	r28
+ 596:	00 d0       	rcall	.+0      	; 0x598 <clrplane_x+0x6>
+ 598:	00 d0       	rcall	.+0      	; 0x59a <clrplane_x+0x8>
+ 59a:	00 d0       	rcall	.+0      	; 0x59c <clrplane_x+0xa>
+ 59c:	cd b7       	in	r28, 0x3d	; 61
+ 59e:	de b7       	in	r29, 0x3e	; 62
+ 5a0:	9e 83       	std	Y+6, r25	; 0x06
+ 5a2:	8d 83       	std	Y+5, r24	; 0x05
+	int y;
+	int z;
+	if (x>=0 && x<CUBE_SIZE)
+ 5a4:	8d 81       	ldd	r24, Y+5	; 0x05
+ 5a6:	9e 81       	ldd	r25, Y+6	; 0x06
+ 5a8:	99 23       	and	r25, r25
+ 5aa:	0c f4       	brge	.+2      	; 0x5ae <clrplane_x+0x1c>
+ 5ac:	58 c0       	rjmp	.+176    	; 0x65e <clrplane_x+0xcc>
+ 5ae:	8d 81       	ldd	r24, Y+5	; 0x05
+ 5b0:	9e 81       	ldd	r25, Y+6	; 0x06
+ 5b2:	8a 30       	cpi	r24, 0x0A	; 10
+ 5b4:	91 05       	cpc	r25, r1
+ 5b6:	0c f0       	brlt	.+2      	; 0x5ba <clrplane_x+0x28>
+ 5b8:	52 c0       	rjmp	.+164    	; 0x65e <clrplane_x+0xcc>
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 5ba:	1a 82       	std	Y+2, r1	; 0x02
+ 5bc:	19 82       	std	Y+1, r1	; 0x01
+ 5be:	49 c0       	rjmp	.+146    	; 0x652 <clrplane_x+0xc0>
+		{
+			for (z=0; z<CUBE_SIZE; z++)
+ 5c0:	1c 82       	std	Y+4, r1	; 0x04
+ 5c2:	1b 82       	std	Y+3, r1	; 0x03
+ 5c4:	3b c0       	rjmp	.+118    	; 0x63c <clrplane_x+0xaa>
+			{
+				cube[z][y] &= (~0x0001 << x);
+ 5c6:	8b 81       	ldd	r24, Y+3	; 0x03
+ 5c8:	9c 81       	ldd	r25, Y+4	; 0x04
+ 5ca:	88 0f       	add	r24, r24
+ 5cc:	99 1f       	adc	r25, r25
+ 5ce:	9c 01       	movw	r18, r24
+ 5d0:	22 0f       	add	r18, r18
+ 5d2:	33 1f       	adc	r19, r19
+ 5d4:	22 0f       	add	r18, r18
+ 5d6:	33 1f       	adc	r19, r19
+ 5d8:	82 0f       	add	r24, r18
+ 5da:	93 1f       	adc	r25, r19
+ 5dc:	29 81       	ldd	r18, Y+1	; 0x01
+ 5de:	3a 81       	ldd	r19, Y+2	; 0x02
+ 5e0:	82 0f       	add	r24, r18
+ 5e2:	93 1f       	adc	r25, r19
+ 5e4:	88 0f       	add	r24, r24
+ 5e6:	99 1f       	adc	r25, r25
+ 5e8:	80 5a       	subi	r24, 0xA0	; 160
+ 5ea:	9f 4f       	sbci	r25, 0xFF	; 255
+ 5ec:	fc 01       	movw	r30, r24
+ 5ee:	20 81       	ld	r18, Z
+ 5f0:	31 81       	ldd	r19, Z+1	; 0x01
+ 5f2:	8e ef       	ldi	r24, 0xFE	; 254
+ 5f4:	9f ef       	ldi	r25, 0xFF	; 255
+ 5f6:	0d 80       	ldd	r0, Y+5	; 0x05
+ 5f8:	02 c0       	rjmp	.+4      	; 0x5fe <clrplane_x+0x6c>
+ 5fa:	88 0f       	add	r24, r24
+ 5fc:	99 1f       	adc	r25, r25
+ 5fe:	0a 94       	dec	r0
+ 600:	e2 f7       	brpl	.-8      	; 0x5fa <clrplane_x+0x68>
+ 602:	28 23       	and	r18, r24
+ 604:	39 23       	and	r19, r25
+ 606:	8b 81       	ldd	r24, Y+3	; 0x03
+ 608:	9c 81       	ldd	r25, Y+4	; 0x04
+ 60a:	88 0f       	add	r24, r24
+ 60c:	99 1f       	adc	r25, r25
+ 60e:	ac 01       	movw	r20, r24
+ 610:	44 0f       	add	r20, r20
+ 612:	55 1f       	adc	r21, r21
+ 614:	44 0f       	add	r20, r20
+ 616:	55 1f       	adc	r21, r21
+ 618:	84 0f       	add	r24, r20
+ 61a:	95 1f       	adc	r25, r21
+ 61c:	49 81       	ldd	r20, Y+1	; 0x01
+ 61e:	5a 81       	ldd	r21, Y+2	; 0x02
+ 620:	84 0f       	add	r24, r20
+ 622:	95 1f       	adc	r25, r21
+ 624:	88 0f       	add	r24, r24
+ 626:	99 1f       	adc	r25, r25
+ 628:	80 5a       	subi	r24, 0xA0	; 160
+ 62a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 62c:	fc 01       	movw	r30, r24
+ 62e:	31 83       	std	Z+1, r19	; 0x01
+ 630:	20 83       	st	Z, r18
+	int z;
+	if (x>=0 && x<CUBE_SIZE)
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+		{
+			for (z=0; z<CUBE_SIZE; z++)
+ 632:	8b 81       	ldd	r24, Y+3	; 0x03
+ 634:	9c 81       	ldd	r25, Y+4	; 0x04
+ 636:	01 96       	adiw	r24, 0x01	; 1
+ 638:	9c 83       	std	Y+4, r25	; 0x04
+ 63a:	8b 83       	std	Y+3, r24	; 0x03
+ 63c:	8b 81       	ldd	r24, Y+3	; 0x03
+ 63e:	9c 81       	ldd	r25, Y+4	; 0x04
+ 640:	8a 30       	cpi	r24, 0x0A	; 10
+ 642:	91 05       	cpc	r25, r1
+ 644:	0c f4       	brge	.+2      	; 0x648 <clrplane_x+0xb6>
+ 646:	bf cf       	rjmp	.-130    	; 0x5c6 <clrplane_x+0x34>
+{
+	int y;
+	int z;
+	if (x>=0 && x<CUBE_SIZE)
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 648:	89 81       	ldd	r24, Y+1	; 0x01
+ 64a:	9a 81       	ldd	r25, Y+2	; 0x02
+ 64c:	01 96       	adiw	r24, 0x01	; 1
+ 64e:	9a 83       	std	Y+2, r25	; 0x02
+ 650:	89 83       	std	Y+1, r24	; 0x01
+ 652:	89 81       	ldd	r24, Y+1	; 0x01
+ 654:	9a 81       	ldd	r25, Y+2	; 0x02
+ 656:	8a 30       	cpi	r24, 0x0A	; 10
+ 658:	91 05       	cpc	r25, r1
+ 65a:	0c f4       	brge	.+2      	; 0x65e <clrplane_x+0xcc>
+ 65c:	b1 cf       	rjmp	.-158    	; 0x5c0 <clrplane_x+0x2e>
+			{
+				cube[z][y] &= (~0x0001 << x);
+			}
+		}
+	}
+}
+ 65e:	26 96       	adiw	r28, 0x06	; 6
+ 660:	0f b6       	in	r0, 0x3f	; 63
+ 662:	f8 94       	cli
+ 664:	de bf       	out	0x3e, r29	; 62
+ 666:	0f be       	out	0x3f, r0	; 63
+ 668:	cd bf       	out	0x3d, r28	; 61
+ 66a:	cf 91       	pop	r28
+ 66c:	df 91       	pop	r29
+ 66e:	08 95       	ret
+
+00000670 <setplane_y>:
+
+// Set a specific plane along the Y-axis
+void setplane_y(int y)
+{
+ 670:	df 93       	push	r29
+ 672:	cf 93       	push	r28
+ 674:	00 d0       	rcall	.+0      	; 0x676 <setplane_y+0x6>
+ 676:	00 d0       	rcall	.+0      	; 0x678 <setplane_y+0x8>
+ 678:	cd b7       	in	r28, 0x3d	; 61
+ 67a:	de b7       	in	r29, 0x3e	; 62
+ 67c:	9c 83       	std	Y+4, r25	; 0x04
+ 67e:	8b 83       	std	Y+3, r24	; 0x03
+	int z;
+	if (y>=0 && y<CUBE_SIZE)
+ 680:	8b 81       	ldd	r24, Y+3	; 0x03
+ 682:	9c 81       	ldd	r25, Y+4	; 0x04
+ 684:	99 23       	and	r25, r25
+ 686:	54 f1       	brlt	.+84     	; 0x6dc <setplane_y+0x6c>
+ 688:	8b 81       	ldd	r24, Y+3	; 0x03
+ 68a:	9c 81       	ldd	r25, Y+4	; 0x04
+ 68c:	8a 30       	cpi	r24, 0x0A	; 10
+ 68e:	91 05       	cpc	r25, r1
+ 690:	2c f5       	brge	.+74     	; 0x6dc <setplane_y+0x6c>
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 692:	1a 82       	std	Y+2, r1	; 0x02
+ 694:	19 82       	std	Y+1, r1	; 0x01
+ 696:	1d c0       	rjmp	.+58     	; 0x6d2 <setplane_y+0x62>
+		{
+			cube[z][y] = 0xffff;
+ 698:	89 81       	ldd	r24, Y+1	; 0x01
+ 69a:	9a 81       	ldd	r25, Y+2	; 0x02
+ 69c:	88 0f       	add	r24, r24
+ 69e:	99 1f       	adc	r25, r25
+ 6a0:	9c 01       	movw	r18, r24
+ 6a2:	22 0f       	add	r18, r18
+ 6a4:	33 1f       	adc	r19, r19
+ 6a6:	22 0f       	add	r18, r18
+ 6a8:	33 1f       	adc	r19, r19
+ 6aa:	82 0f       	add	r24, r18
+ 6ac:	93 1f       	adc	r25, r19
+ 6ae:	2b 81       	ldd	r18, Y+3	; 0x03
+ 6b0:	3c 81       	ldd	r19, Y+4	; 0x04
+ 6b2:	82 0f       	add	r24, r18
+ 6b4:	93 1f       	adc	r25, r19
+ 6b6:	88 0f       	add	r24, r24
+ 6b8:	99 1f       	adc	r25, r25
+ 6ba:	80 5a       	subi	r24, 0xA0	; 160
+ 6bc:	9f 4f       	sbci	r25, 0xFF	; 255
+ 6be:	2f ef       	ldi	r18, 0xFF	; 255
+ 6c0:	3f ef       	ldi	r19, 0xFF	; 255
+ 6c2:	fc 01       	movw	r30, r24
+ 6c4:	31 83       	std	Z+1, r19	; 0x01
+ 6c6:	20 83       	st	Z, r18
+void setplane_y(int y)
+{
+	int z;
+	if (y>=0 && y<CUBE_SIZE)
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 6c8:	89 81       	ldd	r24, Y+1	; 0x01
+ 6ca:	9a 81       	ldd	r25, Y+2	; 0x02
+ 6cc:	01 96       	adiw	r24, 0x01	; 1
+ 6ce:	9a 83       	std	Y+2, r25	; 0x02
+ 6d0:	89 83       	std	Y+1, r24	; 0x01
+ 6d2:	89 81       	ldd	r24, Y+1	; 0x01
+ 6d4:	9a 81       	ldd	r25, Y+2	; 0x02
+ 6d6:	8a 30       	cpi	r24, 0x0A	; 10
+ 6d8:	91 05       	cpc	r25, r1
+ 6da:	f4 f2       	brlt	.-68     	; 0x698 <setplane_y+0x28>
+		{
+			cube[z][y] = 0xffff;
+		}		
+	}
+}
+ 6dc:	0f 90       	pop	r0
+ 6de:	0f 90       	pop	r0
+ 6e0:	0f 90       	pop	r0
+ 6e2:	0f 90       	pop	r0
+ 6e4:	cf 91       	pop	r28
+ 6e6:	df 91       	pop	r29
+ 6e8:	08 95       	ret
+
+000006ea <clrplane_y>:
+
+// Clear a specific plane along the Y-axis
+void clrplane_y(int y)
+{
+ 6ea:	df 93       	push	r29
+ 6ec:	cf 93       	push	r28
+ 6ee:	00 d0       	rcall	.+0      	; 0x6f0 <clrplane_y+0x6>
+ 6f0:	00 d0       	rcall	.+0      	; 0x6f2 <clrplane_y+0x8>
+ 6f2:	cd b7       	in	r28, 0x3d	; 61
+ 6f4:	de b7       	in	r29, 0x3e	; 62
+ 6f6:	9c 83       	std	Y+4, r25	; 0x04
+ 6f8:	8b 83       	std	Y+3, r24	; 0x03
+	int z;
+	if (y>=0 && y<CUBE_SIZE)
+ 6fa:	8b 81       	ldd	r24, Y+3	; 0x03
+ 6fc:	9c 81       	ldd	r25, Y+4	; 0x04
+ 6fe:	99 23       	and	r25, r25
+ 700:	44 f1       	brlt	.+80     	; 0x752 <clrplane_y+0x68>
+ 702:	8b 81       	ldd	r24, Y+3	; 0x03
+ 704:	9c 81       	ldd	r25, Y+4	; 0x04
+ 706:	8a 30       	cpi	r24, 0x0A	; 10
+ 708:	91 05       	cpc	r25, r1
+ 70a:	1c f5       	brge	.+70     	; 0x752 <clrplane_y+0x68>
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 70c:	1a 82       	std	Y+2, r1	; 0x02
+ 70e:	19 82       	std	Y+1, r1	; 0x01
+ 710:	1b c0       	rjmp	.+54     	; 0x748 <clrplane_y+0x5e>
+		{
+			cube[z][y] = 0x0000;
+ 712:	89 81       	ldd	r24, Y+1	; 0x01
+ 714:	9a 81       	ldd	r25, Y+2	; 0x02
+ 716:	88 0f       	add	r24, r24
+ 718:	99 1f       	adc	r25, r25
+ 71a:	9c 01       	movw	r18, r24
+ 71c:	22 0f       	add	r18, r18
+ 71e:	33 1f       	adc	r19, r19
+ 720:	22 0f       	add	r18, r18
+ 722:	33 1f       	adc	r19, r19
+ 724:	82 0f       	add	r24, r18
+ 726:	93 1f       	adc	r25, r19
+ 728:	2b 81       	ldd	r18, Y+3	; 0x03
+ 72a:	3c 81       	ldd	r19, Y+4	; 0x04
+ 72c:	82 0f       	add	r24, r18
+ 72e:	93 1f       	adc	r25, r19
+ 730:	88 0f       	add	r24, r24
+ 732:	99 1f       	adc	r25, r25
+ 734:	80 5a       	subi	r24, 0xA0	; 160
+ 736:	9f 4f       	sbci	r25, 0xFF	; 255
+ 738:	fc 01       	movw	r30, r24
+ 73a:	11 82       	std	Z+1, r1	; 0x01
+ 73c:	10 82       	st	Z, r1
+void clrplane_y(int y)
+{
+	int z;
+	if (y>=0 && y<CUBE_SIZE)
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 73e:	89 81       	ldd	r24, Y+1	; 0x01
+ 740:	9a 81       	ldd	r25, Y+2	; 0x02
+ 742:	01 96       	adiw	r24, 0x01	; 1
+ 744:	9a 83       	std	Y+2, r25	; 0x02
+ 746:	89 83       	std	Y+1, r24	; 0x01
+ 748:	89 81       	ldd	r24, Y+1	; 0x01
+ 74a:	9a 81       	ldd	r25, Y+2	; 0x02
+ 74c:	8a 30       	cpi	r24, 0x0A	; 10
+ 74e:	91 05       	cpc	r25, r1
+ 750:	04 f3       	brlt	.-64     	; 0x712 <clrplane_y+0x28>
+		{
+			cube[z][y] = 0x0000;
+		}		
+	}
+}
+ 752:	0f 90       	pop	r0
+ 754:	0f 90       	pop	r0
+ 756:	0f 90       	pop	r0
+ 758:	0f 90       	pop	r0
+ 75a:	cf 91       	pop	r28
+ 75c:	df 91       	pop	r29
+ 75e:	08 95       	ret
+
+00000760 <setplane_z>:
+
+// Set a specific plane along the Z-axis
+void setplane_z(int z)
+{
+ 760:	df 93       	push	r29
+ 762:	cf 93       	push	r28
+ 764:	00 d0       	rcall	.+0      	; 0x766 <setplane_z+0x6>
+ 766:	00 d0       	rcall	.+0      	; 0x768 <setplane_z+0x8>
+ 768:	cd b7       	in	r28, 0x3d	; 61
+ 76a:	de b7       	in	r29, 0x3e	; 62
+ 76c:	9c 83       	std	Y+4, r25	; 0x04
+ 76e:	8b 83       	std	Y+3, r24	; 0x03
+	int y;
+	if (z>=0 && z<CUBE_SIZE)
+ 770:	8b 81       	ldd	r24, Y+3	; 0x03
+ 772:	9c 81       	ldd	r25, Y+4	; 0x04
+ 774:	99 23       	and	r25, r25
+ 776:	54 f1       	brlt	.+84     	; 0x7cc <setplane_z+0x6c>
+ 778:	8b 81       	ldd	r24, Y+3	; 0x03
+ 77a:	9c 81       	ldd	r25, Y+4	; 0x04
+ 77c:	8a 30       	cpi	r24, 0x0A	; 10
+ 77e:	91 05       	cpc	r25, r1
+ 780:	2c f5       	brge	.+74     	; 0x7cc <setplane_z+0x6c>
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 782:	1a 82       	std	Y+2, r1	; 0x02
+ 784:	19 82       	std	Y+1, r1	; 0x01
+ 786:	1d c0       	rjmp	.+58     	; 0x7c2 <setplane_z+0x62>
+		{
+			cube[z][y] = 0xffff;
+ 788:	8b 81       	ldd	r24, Y+3	; 0x03
+ 78a:	9c 81       	ldd	r25, Y+4	; 0x04
+ 78c:	88 0f       	add	r24, r24
+ 78e:	99 1f       	adc	r25, r25
+ 790:	9c 01       	movw	r18, r24
+ 792:	22 0f       	add	r18, r18
+ 794:	33 1f       	adc	r19, r19
+ 796:	22 0f       	add	r18, r18
+ 798:	33 1f       	adc	r19, r19
+ 79a:	82 0f       	add	r24, r18
+ 79c:	93 1f       	adc	r25, r19
+ 79e:	29 81       	ldd	r18, Y+1	; 0x01
+ 7a0:	3a 81       	ldd	r19, Y+2	; 0x02
+ 7a2:	82 0f       	add	r24, r18
+ 7a4:	93 1f       	adc	r25, r19
+ 7a6:	88 0f       	add	r24, r24
+ 7a8:	99 1f       	adc	r25, r25
+ 7aa:	80 5a       	subi	r24, 0xA0	; 160
+ 7ac:	9f 4f       	sbci	r25, 0xFF	; 255
+ 7ae:	2f ef       	ldi	r18, 0xFF	; 255
+ 7b0:	3f ef       	ldi	r19, 0xFF	; 255
+ 7b2:	fc 01       	movw	r30, r24
+ 7b4:	31 83       	std	Z+1, r19	; 0x01
+ 7b6:	20 83       	st	Z, r18
+void setplane_z(int z)
+{
+	int y;
+	if (z>=0 && z<CUBE_SIZE)
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 7b8:	89 81       	ldd	r24, Y+1	; 0x01
+ 7ba:	9a 81       	ldd	r25, Y+2	; 0x02
+ 7bc:	01 96       	adiw	r24, 0x01	; 1
+ 7be:	9a 83       	std	Y+2, r25	; 0x02
+ 7c0:	89 83       	std	Y+1, r24	; 0x01
+ 7c2:	89 81       	ldd	r24, Y+1	; 0x01
+ 7c4:	9a 81       	ldd	r25, Y+2	; 0x02
+ 7c6:	8a 30       	cpi	r24, 0x0A	; 10
+ 7c8:	91 05       	cpc	r25, r1
+ 7ca:	f4 f2       	brlt	.-68     	; 0x788 <setplane_z+0x28>
+		{
+			cube[z][y] = 0xffff;
+		}
+	}
+}
+ 7cc:	0f 90       	pop	r0
+ 7ce:	0f 90       	pop	r0
+ 7d0:	0f 90       	pop	r0
+ 7d2:	0f 90       	pop	r0
+ 7d4:	cf 91       	pop	r28
+ 7d6:	df 91       	pop	r29
+ 7d8:	08 95       	ret
+
+000007da <clrplane_z>:
+
+// Clear a specific plane along the Z-axis
+void clrplane_z(int z)
+{
+ 7da:	df 93       	push	r29
+ 7dc:	cf 93       	push	r28
+ 7de:	00 d0       	rcall	.+0      	; 0x7e0 <clrplane_z+0x6>
+ 7e0:	00 d0       	rcall	.+0      	; 0x7e2 <clrplane_z+0x8>
+ 7e2:	cd b7       	in	r28, 0x3d	; 61
+ 7e4:	de b7       	in	r29, 0x3e	; 62
+ 7e6:	9c 83       	std	Y+4, r25	; 0x04
+ 7e8:	8b 83       	std	Y+3, r24	; 0x03
+	int y;
+	if (z>=0 && z<CUBE_SIZE)
+ 7ea:	8b 81       	ldd	r24, Y+3	; 0x03
+ 7ec:	9c 81       	ldd	r25, Y+4	; 0x04
+ 7ee:	99 23       	and	r25, r25
+ 7f0:	44 f1       	brlt	.+80     	; 0x842 <clrplane_z+0x68>
+ 7f2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 7f4:	9c 81       	ldd	r25, Y+4	; 0x04
+ 7f6:	8a 30       	cpi	r24, 0x0A	; 10
+ 7f8:	91 05       	cpc	r25, r1
+ 7fa:	1c f5       	brge	.+70     	; 0x842 <clrplane_z+0x68>
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 7fc:	1a 82       	std	Y+2, r1	; 0x02
+ 7fe:	19 82       	std	Y+1, r1	; 0x01
+ 800:	1b c0       	rjmp	.+54     	; 0x838 <clrplane_z+0x5e>
+		{
+			cube[z][y] = 0x0000;
+ 802:	8b 81       	ldd	r24, Y+3	; 0x03
+ 804:	9c 81       	ldd	r25, Y+4	; 0x04
+ 806:	88 0f       	add	r24, r24
+ 808:	99 1f       	adc	r25, r25
+ 80a:	9c 01       	movw	r18, r24
+ 80c:	22 0f       	add	r18, r18
+ 80e:	33 1f       	adc	r19, r19
+ 810:	22 0f       	add	r18, r18
+ 812:	33 1f       	adc	r19, r19
+ 814:	82 0f       	add	r24, r18
+ 816:	93 1f       	adc	r25, r19
+ 818:	29 81       	ldd	r18, Y+1	; 0x01
+ 81a:	3a 81       	ldd	r19, Y+2	; 0x02
+ 81c:	82 0f       	add	r24, r18
+ 81e:	93 1f       	adc	r25, r19
+ 820:	88 0f       	add	r24, r24
+ 822:	99 1f       	adc	r25, r25
+ 824:	80 5a       	subi	r24, 0xA0	; 160
+ 826:	9f 4f       	sbci	r25, 0xFF	; 255
+ 828:	fc 01       	movw	r30, r24
+ 82a:	11 82       	std	Z+1, r1	; 0x01
+ 82c:	10 82       	st	Z, r1
+void clrplane_z(int z)
+{
+	int y;
+	if (z>=0 && z<CUBE_SIZE)
+	{
+		for (y=0; y<CUBE_SIZE; y++)
+ 82e:	89 81       	ldd	r24, Y+1	; 0x01
+ 830:	9a 81       	ldd	r25, Y+2	; 0x02
+ 832:	01 96       	adiw	r24, 0x01	; 1
+ 834:	9a 83       	std	Y+2, r25	; 0x02
+ 836:	89 83       	std	Y+1, r24	; 0x01
+ 838:	89 81       	ldd	r24, Y+1	; 0x01
+ 83a:	9a 81       	ldd	r25, Y+2	; 0x02
+ 83c:	8a 30       	cpi	r24, 0x0A	; 10
+ 83e:	91 05       	cpc	r25, r1
+ 840:	04 f3       	brlt	.-64     	; 0x802 <clrplane_z+0x28>
+		{
+			cube[z][y] = 0x0000;
+		}
+	}
+}
+ 842:	0f 90       	pop	r0
+ 844:	0f 90       	pop	r0
+ 846:	0f 90       	pop	r0
+ 848:	0f 90       	pop	r0
+ 84a:	cf 91       	pop	r28
+ 84c:	df 91       	pop	r29
+ 84e:	08 95       	ret
+
+00000850 <fill>:
+
+
+// Fill the cube with a pattern (fill entire cube 0xffff)
+void fill (int pattern)
+{
+ 850:	df 93       	push	r29
+ 852:	cf 93       	push	r28
+ 854:	00 d0       	rcall	.+0      	; 0x856 <fill+0x6>
+ 856:	00 d0       	rcall	.+0      	; 0x858 <fill+0x8>
+ 858:	00 d0       	rcall	.+0      	; 0x85a <fill+0xa>
+ 85a:	cd b7       	in	r28, 0x3d	; 61
+ 85c:	de b7       	in	r29, 0x3e	; 62
+ 85e:	9e 83       	std	Y+6, r25	; 0x06
+ 860:	8d 83       	std	Y+5, r24	; 0x05
+	int y;
+	int z;
+	for (y=0; y<CUBE_SIZE; y++)
+ 862:	1a 82       	std	Y+2, r1	; 0x02
+ 864:	19 82       	std	Y+1, r1	; 0x01
+ 866:	2a c0       	rjmp	.+84     	; 0x8bc <__stack+0x5d>
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 868:	1c 82       	std	Y+4, r1	; 0x04
+ 86a:	1b 82       	std	Y+3, r1	; 0x03
+ 86c:	1d c0       	rjmp	.+58     	; 0x8a8 <__stack+0x49>
+		{
+			cube[z][y] = pattern;
+ 86e:	2d 81       	ldd	r18, Y+5	; 0x05
+ 870:	3e 81       	ldd	r19, Y+6	; 0x06
+ 872:	8b 81       	ldd	r24, Y+3	; 0x03
+ 874:	9c 81       	ldd	r25, Y+4	; 0x04
+ 876:	88 0f       	add	r24, r24
+ 878:	99 1f       	adc	r25, r25
+ 87a:	ac 01       	movw	r20, r24
+ 87c:	44 0f       	add	r20, r20
+ 87e:	55 1f       	adc	r21, r21
+ 880:	44 0f       	add	r20, r20
+ 882:	55 1f       	adc	r21, r21
+ 884:	84 0f       	add	r24, r20
+ 886:	95 1f       	adc	r25, r21
+ 888:	49 81       	ldd	r20, Y+1	; 0x01
+ 88a:	5a 81       	ldd	r21, Y+2	; 0x02
+ 88c:	84 0f       	add	r24, r20
+ 88e:	95 1f       	adc	r25, r21
+ 890:	88 0f       	add	r24, r24
+ 892:	99 1f       	adc	r25, r25
+ 894:	80 5a       	subi	r24, 0xA0	; 160
+ 896:	9f 4f       	sbci	r25, 0xFF	; 255
+ 898:	fc 01       	movw	r30, r24
+ 89a:	31 83       	std	Z+1, r19	; 0x01
+ 89c:	20 83       	st	Z, r18
+{
+	int y;
+	int z;
+	for (y=0; y<CUBE_SIZE; y++)
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 89e:	8b 81       	ldd	r24, Y+3	; 0x03
+ 8a0:	9c 81       	ldd	r25, Y+4	; 0x04
+ 8a2:	01 96       	adiw	r24, 0x01	; 1
+ 8a4:	9c 83       	std	Y+4, r25	; 0x04
+ 8a6:	8b 83       	std	Y+3, r24	; 0x03
+ 8a8:	8b 81       	ldd	r24, Y+3	; 0x03
+ 8aa:	9c 81       	ldd	r25, Y+4	; 0x04
+ 8ac:	8a 30       	cpi	r24, 0x0A	; 10
+ 8ae:	91 05       	cpc	r25, r1
+ 8b0:	f4 f2       	brlt	.-68     	; 0x86e <__stack+0xf>
+// Fill the cube with a pattern (fill entire cube 0xffff)
+void fill (int pattern)
+{
+	int y;
+	int z;
+	for (y=0; y<CUBE_SIZE; y++)
+ 8b2:	89 81       	ldd	r24, Y+1	; 0x01
+ 8b4:	9a 81       	ldd	r25, Y+2	; 0x02
+ 8b6:	01 96       	adiw	r24, 0x01	; 1
+ 8b8:	9a 83       	std	Y+2, r25	; 0x02
+ 8ba:	89 83       	std	Y+1, r24	; 0x01
+ 8bc:	89 81       	ldd	r24, Y+1	; 0x01
+ 8be:	9a 81       	ldd	r25, Y+2	; 0x02
+ 8c0:	8a 30       	cpi	r24, 0x0A	; 10
+ 8c2:	91 05       	cpc	r25, r1
+ 8c4:	8c f2       	brlt	.-94     	; 0x868 <__stack+0x9>
+		for (z=0; z<CUBE_SIZE; z++)
+		{
+			cube[z][y] = pattern;
+		}
+	}
+}
+ 8c6:	26 96       	adiw	r28, 0x06	; 6
+ 8c8:	0f b6       	in	r0, 0x3f	; 63
+ 8ca:	f8 94       	cli
+ 8cc:	de bf       	out	0x3e, r29	; 62
+ 8ce:	0f be       	out	0x3f, r0	; 63
+ 8d0:	cd bf       	out	0x3d, r28	; 61
+ 8d2:	cf 91       	pop	r28
+ 8d4:	df 91       	pop	r29
+ 8d6:	08 95       	ret
+
+000008d8 <clear>:
+
+// Clear the entire cube
+void clear (void)
+{
+ 8d8:	df 93       	push	r29
+ 8da:	cf 93       	push	r28
+ 8dc:	00 d0       	rcall	.+0      	; 0x8de <clear+0x6>
+ 8de:	00 d0       	rcall	.+0      	; 0x8e0 <clear+0x8>
+ 8e0:	cd b7       	in	r28, 0x3d	; 61
+ 8e2:	de b7       	in	r29, 0x3e	; 62
+	int y;
+	int z;
+	for (y=0; y<CUBE_SIZE; y++)
+ 8e4:	1a 82       	std	Y+2, r1	; 0x02
+ 8e6:	19 82       	std	Y+1, r1	; 0x01
+ 8e8:	28 c0       	rjmp	.+80     	; 0x93a <clear+0x62>
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 8ea:	1c 82       	std	Y+4, r1	; 0x04
+ 8ec:	1b 82       	std	Y+3, r1	; 0x03
+ 8ee:	1b c0       	rjmp	.+54     	; 0x926 <clear+0x4e>
+		{
+			cube[z][y] = 0x0000;
+ 8f0:	8b 81       	ldd	r24, Y+3	; 0x03
+ 8f2:	9c 81       	ldd	r25, Y+4	; 0x04
+ 8f4:	88 0f       	add	r24, r24
+ 8f6:	99 1f       	adc	r25, r25
+ 8f8:	9c 01       	movw	r18, r24
+ 8fa:	22 0f       	add	r18, r18
+ 8fc:	33 1f       	adc	r19, r19
+ 8fe:	22 0f       	add	r18, r18
+ 900:	33 1f       	adc	r19, r19
+ 902:	82 0f       	add	r24, r18
+ 904:	93 1f       	adc	r25, r19
+ 906:	29 81       	ldd	r18, Y+1	; 0x01
+ 908:	3a 81       	ldd	r19, Y+2	; 0x02
+ 90a:	82 0f       	add	r24, r18
+ 90c:	93 1f       	adc	r25, r19
+ 90e:	88 0f       	add	r24, r24
+ 910:	99 1f       	adc	r25, r25
+ 912:	80 5a       	subi	r24, 0xA0	; 160
+ 914:	9f 4f       	sbci	r25, 0xFF	; 255
+ 916:	fc 01       	movw	r30, r24
+ 918:	11 82       	std	Z+1, r1	; 0x01
+ 91a:	10 82       	st	Z, r1
+{
+	int y;
+	int z;
+	for (y=0; y<CUBE_SIZE; y++)
+	{
+		for (z=0; z<CUBE_SIZE; z++)
+ 91c:	8b 81       	ldd	r24, Y+3	; 0x03
+ 91e:	9c 81       	ldd	r25, Y+4	; 0x04
+ 920:	01 96       	adiw	r24, 0x01	; 1
+ 922:	9c 83       	std	Y+4, r25	; 0x04
+ 924:	8b 83       	std	Y+3, r24	; 0x03
+ 926:	8b 81       	ldd	r24, Y+3	; 0x03
+ 928:	9c 81       	ldd	r25, Y+4	; 0x04
+ 92a:	8a 30       	cpi	r24, 0x0A	; 10
+ 92c:	91 05       	cpc	r25, r1
+ 92e:	04 f3       	brlt	.-64     	; 0x8f0 <clear+0x18>
+// Clear the entire cube
+void clear (void)
+{
+	int y;
+	int z;
+	for (y=0; y<CUBE_SIZE; y++)
+ 930:	89 81       	ldd	r24, Y+1	; 0x01
+ 932:	9a 81       	ldd	r25, Y+2	; 0x02
+ 934:	01 96       	adiw	r24, 0x01	; 1
+ 936:	9a 83       	std	Y+2, r25	; 0x02
+ 938:	89 83       	std	Y+1, r24	; 0x01
+ 93a:	89 81       	ldd	r24, Y+1	; 0x01
+ 93c:	9a 81       	ldd	r25, Y+2	; 0x02
+ 93e:	8a 30       	cpi	r24, 0x0A	; 10
+ 940:	91 05       	cpc	r25, r1
+ 942:	9c f2       	brlt	.-90     	; 0x8ea <clear+0x12>
+		for (z=0; z<CUBE_SIZE; z++)
+		{
+			cube[z][y] = 0x0000;
+		}
+	}
+}
+ 944:	0f 90       	pop	r0
+ 946:	0f 90       	pop	r0
+ 948:	0f 90       	pop	r0
+ 94a:	0f 90       	pop	r0
+ 94c:	cf 91       	pop	r28
+ 94e:	df 91       	pop	r29
+ 950:	08 95       	ret
+
+00000952 <delay_ms>:
+// This is not calibrated to milliseconds,
+// but we had already made to many effects using this
+// calibration when we figured it might be a good idea
+// to calibrate it.
+void delay_ms(uint16_t x)
+{
+ 952:	df 93       	push	r29
+ 954:	cf 93       	push	r28
+ 956:	00 d0       	rcall	.+0      	; 0x958 <delay_ms+0x6>
+ 958:	00 d0       	rcall	.+0      	; 0x95a <delay_ms+0x8>
+ 95a:	cd b7       	in	r28, 0x3d	; 61
+ 95c:	de b7       	in	r29, 0x3e	; 62
+ 95e:	9c 83       	std	Y+4, r25	; 0x04
+ 960:	8b 83       	std	Y+3, r24	; 0x03
+  uint8_t y, z;
+  for ( ; x > 0 ; x--){
+ 962:	16 c0       	rjmp	.+44     	; 0x990 <delay_ms+0x3e>
+    for ( y = 0 ; y < 90 ; y++){
+ 964:	19 82       	std	Y+1, r1	; 0x01
+ 966:	0c c0       	rjmp	.+24     	; 0x980 <delay_ms+0x2e>
+      for ( z = 0 ; z < 6 ; z++){
+ 968:	1a 82       	std	Y+2, r1	; 0x02
+ 96a:	04 c0       	rjmp	.+8      	; 0x974 <delay_ms+0x22>
+        asm volatile ("nop");
+ 96c:	00 00       	nop
+void delay_ms(uint16_t x)
+{
+  uint8_t y, z;
+  for ( ; x > 0 ; x--){
+    for ( y = 0 ; y < 90 ; y++){
+      for ( z = 0 ; z < 6 ; z++){
+ 96e:	8a 81       	ldd	r24, Y+2	; 0x02
+ 970:	8f 5f       	subi	r24, 0xFF	; 255
+ 972:	8a 83       	std	Y+2, r24	; 0x02
+ 974:	8a 81       	ldd	r24, Y+2	; 0x02
+ 976:	86 30       	cpi	r24, 0x06	; 6
+ 978:	c8 f3       	brcs	.-14     	; 0x96c <delay_ms+0x1a>
+// to calibrate it.
+void delay_ms(uint16_t x)
+{
+  uint8_t y, z;
+  for ( ; x > 0 ; x--){
+    for ( y = 0 ; y < 90 ; y++){
+ 97a:	89 81       	ldd	r24, Y+1	; 0x01
+ 97c:	8f 5f       	subi	r24, 0xFF	; 255
+ 97e:	89 83       	std	Y+1, r24	; 0x01
+ 980:	89 81       	ldd	r24, Y+1	; 0x01
+ 982:	8a 35       	cpi	r24, 0x5A	; 90
+ 984:	88 f3       	brcs	.-30     	; 0x968 <delay_ms+0x16>
+// calibration when we figured it might be a good idea
+// to calibrate it.
+void delay_ms(uint16_t x)
+{
+  uint8_t y, z;
+  for ( ; x > 0 ; x--){
+ 986:	8b 81       	ldd	r24, Y+3	; 0x03
+ 988:	9c 81       	ldd	r25, Y+4	; 0x04
+ 98a:	01 97       	sbiw	r24, 0x01	; 1
+ 98c:	9c 83       	std	Y+4, r25	; 0x04
+ 98e:	8b 83       	std	Y+3, r24	; 0x03
+ 990:	8b 81       	ldd	r24, Y+3	; 0x03
+ 992:	9c 81       	ldd	r25, Y+4	; 0x04
+ 994:	00 97       	sbiw	r24, 0x00	; 0
+ 996:	31 f7       	brne	.-52     	; 0x964 <delay_ms+0x12>
+      for ( z = 0 ; z < 6 ; z++){
+        asm volatile ("nop");
+      }
+    }
+  }
+}
+ 998:	0f 90       	pop	r0
+ 99a:	0f 90       	pop	r0
+ 99c:	0f 90       	pop	r0
+ 99e:	0f 90       	pop	r0
+ 9a0:	cf 91       	pop	r28
+ 9a2:	df 91       	pop	r29
+ 9a4:	08 95       	ret
+
+000009a6 <effect_test1>:
+#include "cube.h"
+#include "draw.h"
+#include "effect.h"
+
+void effect_test1(void)
+{
+ 9a6:	df 93       	push	r29
+ 9a8:	cf 93       	push	r28
+ 9aa:	00 d0       	rcall	.+0      	; 0x9ac <effect_test1+0x6>
+ 9ac:	cd b7       	in	r28, 0x3d	; 61
+ 9ae:	de b7       	in	r29, 0x3e	; 62
+	int i;
+	for(i=0;i<CUBE_SIZE;i++)
+ 9b0:	1a 82       	std	Y+2, r1	; 0x02
+ 9b2:	19 82       	std	Y+1, r1	; 0x01
+ 9b4:	13 c0       	rjmp	.+38     	; 0x9dc <effect_test1+0x36>
+	{
+		setplane (AXIS_X, i);
+ 9b6:	99 81       	ldd	r25, Y+1	; 0x01
+ 9b8:	88 e7       	ldi	r24, 0x78	; 120
+ 9ba:	69 2f       	mov	r22, r25
+ 9bc:	0e 94 06 02 	call	0x40c	; 0x40c <setplane>
+		delay_ms(1000);
+ 9c0:	88 ee       	ldi	r24, 0xE8	; 232
+ 9c2:	93 e0       	ldi	r25, 0x03	; 3
+ 9c4:	0e 94 a9 04 	call	0x952	; 0x952 <delay_ms>
+		clrplane (AXIS_X, i);
+ 9c8:	99 81       	ldd	r25, Y+1	; 0x01
+ 9ca:	88 e7       	ldi	r24, 0x78	; 120
+ 9cc:	69 2f       	mov	r22, r25
+ 9ce:	0e 94 30 02 	call	0x460	; 0x460 <clrplane>
+#include "effect.h"
+
+void effect_test1(void)
+{
+	int i;
+	for(i=0;i<CUBE_SIZE;i++)
+ 9d2:	89 81       	ldd	r24, Y+1	; 0x01
+ 9d4:	9a 81       	ldd	r25, Y+2	; 0x02
+ 9d6:	01 96       	adiw	r24, 0x01	; 1
+ 9d8:	9a 83       	std	Y+2, r25	; 0x02
+ 9da:	89 83       	std	Y+1, r24	; 0x01
+ 9dc:	89 81       	ldd	r24, Y+1	; 0x01
+ 9de:	9a 81       	ldd	r25, Y+2	; 0x02
+ 9e0:	8a 30       	cpi	r24, 0x0A	; 10
+ 9e2:	91 05       	cpc	r25, r1
+ 9e4:	44 f3       	brlt	.-48     	; 0x9b6 <effect_test1+0x10>
+	{
+		setplane (AXIS_X, i);
+		delay_ms(1000);
+		clrplane (AXIS_X, i);
+	}
+	delay_ms(1000);
+ 9e6:	88 ee       	ldi	r24, 0xE8	; 232
+ 9e8:	93 e0       	ldi	r25, 0x03	; 3
+ 9ea:	0e 94 a9 04 	call	0x952	; 0x952 <delay_ms>
+	clear();
+ 9ee:	0e 94 6c 04 	call	0x8d8	; 0x8d8 <clear>
+ 9f2:	0f 90       	pop	r0
+ 9f4:	0f 90       	pop	r0
+ 9f6:	cf 91       	pop	r28
+ 9f8:	df 91       	pop	r29
+ 9fa:	08 95       	ret
+
+000009fc <main>:
+#include "main.h"
+#include "draw.h"
+#include "effect.h"
+
+int main(void)
+{
+ 9fc:	df 93       	push	r29
+ 9fe:	cf 93       	push	r28
+ a00:	cd b7       	in	r28, 0x3d	; 61
+ a02:	de b7       	in	r29, 0x3e	; 62
+	setup(); // Initialize IO-Ports etc.
+ a04:	0e 94 e2 05 	call	0xbc4	; 0xbc4 <setup>
+	sei(); // Enable interrupts
+ a08:	78 94       	sei
+    while(1)
+    {
+        effect_test1();
+ a0a:	0e 94 d3 04 	call	0x9a6	; 0x9a6 <effect_test1>
+    }
+ a0e:	fd cf       	rjmp	.-6      	; 0xa0a <main+0xe>
+
+00000a10 <__vector_4>:
+}
+
+ISR(TIMER2_COMP_vect) // This function runs when timer2 interrupts. (COMPA or COMP ?)
+{
+ a10:	1f 92       	push	r1
+ a12:	0f 92       	push	r0
+ a14:	0f b6       	in	r0, 0x3f	; 63
+ a16:	0f 92       	push	r0
+ a18:	11 24       	eor	r1, r1
+ a1a:	2f 93       	push	r18
+ a1c:	3f 93       	push	r19
+ a1e:	4f 93       	push	r20
+ a20:	5f 93       	push	r21
+ a22:	6f 93       	push	r22
+ a24:	8f 93       	push	r24
+ a26:	9f 93       	push	r25
+ a28:	ef 93       	push	r30
+ a2a:	ff 93       	push	r31
+ a2c:	df 93       	push	r29
+ a2e:	cf 93       	push	r28
+ a30:	00 d0       	rcall	.+0      	; 0xa32 <__vector_4+0x22>
+ a32:	cd b7       	in	r28, 0x3d	; 61
+ a34:	de b7       	in	r29, 0x3e	; 62
+	int i;
+	PORTB = 0x00; // Turn all cathode layers off.
+ a36:	88 e3       	ldi	r24, 0x38	; 56
+ a38:	90 e0       	ldi	r25, 0x00	; 0
+ a3a:	fc 01       	movw	r30, r24
+ a3c:	10 82       	st	Z, r1
+	PORTC &= 0xf3;
+ a3e:	85 e3       	ldi	r24, 0x35	; 53
+ a40:	90 e0       	ldi	r25, 0x00	; 0
+ a42:	25 e3       	ldi	r18, 0x35	; 53
+ a44:	30 e0       	ldi	r19, 0x00	; 0
+ a46:	f9 01       	movw	r30, r18
+ a48:	20 81       	ld	r18, Z
+ a4a:	23 7f       	andi	r18, 0xF3	; 243
+ a4c:	fc 01       	movw	r30, r24
+ a4e:	20 83       	st	Z, r18
+	
+	PORTC &= ~0x10; // Set RCK Low.
+ a50:	85 e3       	ldi	r24, 0x35	; 53
+ a52:	90 e0       	ldi	r25, 0x00	; 0
+ a54:	25 e3       	ldi	r18, 0x35	; 53
+ a56:	30 e0       	ldi	r19, 0x00	; 0
+ a58:	f9 01       	movw	r30, r18
+ a5a:	20 81       	ld	r18, Z
+ a5c:	2f 7e       	andi	r18, 0xEF	; 239
+ a5e:	fc 01       	movw	r30, r24
+ a60:	20 83       	st	Z, r18
+	
+	// Write data from buffer to shift registers.
+	for (i=CUBE_SIZE-1; i>=0; i--)
+ a62:	89 e0       	ldi	r24, 0x09	; 9
+ a64:	90 e0       	ldi	r25, 0x00	; 0
+ a66:	9a 83       	std	Y+2, r25	; 0x02
+ a68:	89 83       	std	Y+1, r24	; 0x01
+ a6a:	53 c0       	rjmp	.+166    	; 0xb12 <__vector_4+0x102>
+	{
+		PORTC &= ~0x20; // Set SCK Low.
+ a6c:	85 e3       	ldi	r24, 0x35	; 53
+ a6e:	90 e0       	ldi	r25, 0x00	; 0
+ a70:	25 e3       	ldi	r18, 0x35	; 53
+ a72:	30 e0       	ldi	r19, 0x00	; 0
+ a74:	f9 01       	movw	r30, r18
+ a76:	20 81       	ld	r18, Z
+ a78:	2f 7d       	andi	r18, 0xDF	; 223
+ a7a:	fc 01       	movw	r30, r24
+ a7c:	20 83       	st	Z, r18
+		
+		PORTA = cube[current_layer][i];						// Write the first byte in the integer to Port A.
+ a7e:	2b e3       	ldi	r18, 0x3B	; 59
+ a80:	30 e0       	ldi	r19, 0x00	; 0
+ a82:	80 91 28 01 	lds	r24, 0x0128
+ a86:	88 2f       	mov	r24, r24
+ a88:	90 e0       	ldi	r25, 0x00	; 0
+ a8a:	88 0f       	add	r24, r24
+ a8c:	99 1f       	adc	r25, r25
+ a8e:	ac 01       	movw	r20, r24
+ a90:	44 0f       	add	r20, r20
+ a92:	55 1f       	adc	r21, r21
+ a94:	44 0f       	add	r20, r20
+ a96:	55 1f       	adc	r21, r21
+ a98:	84 0f       	add	r24, r20
+ a9a:	95 1f       	adc	r25, r21
+ a9c:	49 81       	ldd	r20, Y+1	; 0x01
+ a9e:	5a 81       	ldd	r21, Y+2	; 0x02
+ aa0:	84 0f       	add	r24, r20
+ aa2:	95 1f       	adc	r25, r21
+ aa4:	88 0f       	add	r24, r24
+ aa6:	99 1f       	adc	r25, r25
+ aa8:	80 5a       	subi	r24, 0xA0	; 160
+ aaa:	9f 4f       	sbci	r25, 0xFF	; 255
+ aac:	fc 01       	movw	r30, r24
+ aae:	80 81       	ld	r24, Z
+ ab0:	91 81       	ldd	r25, Z+1	; 0x01
+ ab2:	f9 01       	movw	r30, r18
+ ab4:	80 83       	st	Z, r24
+		PORTC |= ((cube[current_layer][i] & 0x0003) >> 8);	// Write the second byte in the integer to Port C.
+ ab6:	80 91 28 01 	lds	r24, 0x0128
+ aba:	88 2f       	mov	r24, r24
+ abc:	90 e0       	ldi	r25, 0x00	; 0
+ abe:	88 0f       	add	r24, r24
+ ac0:	99 1f       	adc	r25, r25
+ ac2:	9c 01       	movw	r18, r24
+ ac4:	22 0f       	add	r18, r18
+ ac6:	33 1f       	adc	r19, r19
+ ac8:	22 0f       	add	r18, r18
+ aca:	33 1f       	adc	r19, r19
+ acc:	82 0f       	add	r24, r18
+ ace:	93 1f       	adc	r25, r19
+ ad0:	29 81       	ldd	r18, Y+1	; 0x01
+ ad2:	3a 81       	ldd	r19, Y+2	; 0x02
+ ad4:	82 0f       	add	r24, r18
+ ad6:	93 1f       	adc	r25, r19
+ ad8:	88 0f       	add	r24, r24
+ ada:	99 1f       	adc	r25, r25
+ adc:	80 5a       	subi	r24, 0xA0	; 160
+ ade:	9f 4f       	sbci	r25, 0xFF	; 255
+ ae0:	fc 01       	movw	r30, r24
+ ae2:	80 81       	ld	r24, Z
+ ae4:	91 81       	ldd	r25, Z+1	; 0x01
+ ae6:	85 e3       	ldi	r24, 0x35	; 53
+ ae8:	90 e0       	ldi	r25, 0x00	; 0
+ aea:	25 e3       	ldi	r18, 0x35	; 53
+ aec:	30 e0       	ldi	r19, 0x00	; 0
+ aee:	f9 01       	movw	r30, r18
+ af0:	20 81       	ld	r18, Z
+ af2:	fc 01       	movw	r30, r24
+ af4:	20 83       	st	Z, r18
+		
+		PORTC |= 0x20;  // Pull SCK High
+ af6:	85 e3       	ldi	r24, 0x35	; 53
+ af8:	90 e0       	ldi	r25, 0x00	; 0
+ afa:	25 e3       	ldi	r18, 0x35	; 53
+ afc:	30 e0       	ldi	r19, 0x00	; 0
+ afe:	f9 01       	movw	r30, r18
+ b00:	20 81       	ld	r18, Z
+ b02:	20 62       	ori	r18, 0x20	; 32
+ b04:	fc 01       	movw	r30, r24
+ b06:	20 83       	st	Z, r18
+	PORTC &= 0xf3;
+	
+	PORTC &= ~0x10; // Set RCK Low.
+	
+	// Write data from buffer to shift registers.
+	for (i=CUBE_SIZE-1; i>=0; i--)
+ b08:	89 81       	ldd	r24, Y+1	; 0x01
+ b0a:	9a 81       	ldd	r25, Y+2	; 0x02
+ b0c:	01 97       	sbiw	r24, 0x01	; 1
+ b0e:	9a 83       	std	Y+2, r25	; 0x02
+ b10:	89 83       	std	Y+1, r24	; 0x01
+ b12:	89 81       	ldd	r24, Y+1	; 0x01
+ b14:	9a 81       	ldd	r25, Y+2	; 0x02
+ b16:	99 23       	and	r25, r25
+ b18:	0c f0       	brlt	.+2      	; 0xb1c <__vector_4+0x10c>
+ b1a:	a8 cf       	rjmp	.-176    	; 0xa6c <__vector_4+0x5c>
+		PORTA = cube[current_layer][i];						// Write the first byte in the integer to Port A.
+		PORTC |= ((cube[current_layer][i] & 0x0003) >> 8);	// Write the second byte in the integer to Port C.
+		
+		PORTC |= 0x20;  // Pull SCK High
+	}
+	PORTC |= 0x10;  // Pull RCK High.
+ b1c:	85 e3       	ldi	r24, 0x35	; 53
+ b1e:	90 e0       	ldi	r25, 0x00	; 0
+ b20:	25 e3       	ldi	r18, 0x35	; 53
+ b22:	30 e0       	ldi	r19, 0x00	; 0
+ b24:	f9 01       	movw	r30, r18
+ b26:	20 81       	ld	r18, Z
+ b28:	20 61       	ori	r18, 0x10	; 16
+ b2a:	fc 01       	movw	r30, r24
+ b2c:	20 83       	st	Z, r18
+	
+	// Turn on the current cathode layer.
+	if (current_layer<8)
+ b2e:	80 91 28 01 	lds	r24, 0x0128
+ b32:	88 30       	cpi	r24, 0x08	; 8
+ b34:	88 f4       	brcc	.+34     	; 0xb58 <__vector_4+0x148>
+	{
+		PORTB = (0x01 << current_layer);
+ b36:	88 e3       	ldi	r24, 0x38	; 56
+ b38:	90 e0       	ldi	r25, 0x00	; 0
+ b3a:	20 91 28 01 	lds	r18, 0x0128
+ b3e:	42 2f       	mov	r20, r18
+ b40:	50 e0       	ldi	r21, 0x00	; 0
+ b42:	21 e0       	ldi	r18, 0x01	; 1
+ b44:	30 e0       	ldi	r19, 0x00	; 0
+ b46:	04 2e       	mov	r0, r20
+ b48:	02 c0       	rjmp	.+4      	; 0xb4e <__vector_4+0x13e>
+ b4a:	22 0f       	add	r18, r18
+ b4c:	33 1f       	adc	r19, r19
+ b4e:	0a 94       	dec	r0
+ b50:	e2 f7       	brpl	.-8      	; 0xb4a <__vector_4+0x13a>
+ b52:	fc 01       	movw	r30, r24
+ b54:	20 83       	st	Z, r18
+ b56:	19 c0       	rjmp	.+50     	; 0xb8a <__vector_4+0x17a>
+	} 
+	else
+	{
+		PORTC |= (0x01 << (current_layer-6)); // Layer 8+9 on PC2+PC3
+ b58:	85 e3       	ldi	r24, 0x35	; 53
+ b5a:	90 e0       	ldi	r25, 0x00	; 0
+ b5c:	25 e3       	ldi	r18, 0x35	; 53
+ b5e:	30 e0       	ldi	r19, 0x00	; 0
+ b60:	f9 01       	movw	r30, r18
+ b62:	20 81       	ld	r18, Z
+ b64:	62 2f       	mov	r22, r18
+ b66:	20 91 28 01 	lds	r18, 0x0128
+ b6a:	22 2f       	mov	r18, r18
+ b6c:	30 e0       	ldi	r19, 0x00	; 0
+ b6e:	a9 01       	movw	r20, r18
+ b70:	46 50       	subi	r20, 0x06	; 6
+ b72:	50 40       	sbci	r21, 0x00	; 0
+ b74:	21 e0       	ldi	r18, 0x01	; 1
+ b76:	30 e0       	ldi	r19, 0x00	; 0
+ b78:	04 2e       	mov	r0, r20
+ b7a:	02 c0       	rjmp	.+4      	; 0xb80 <__vector_4+0x170>
+ b7c:	22 0f       	add	r18, r18
+ b7e:	33 1f       	adc	r19, r19
+ b80:	0a 94       	dec	r0
+ b82:	e2 f7       	brpl	.-8      	; 0xb7c <__vector_4+0x16c>
+ b84:	26 2b       	or	r18, r22
+ b86:	fc 01       	movw	r30, r24
+ b88:	20 83       	st	Z, r18
+	}
+	
+	current_layer++;				// Increment the layer counter.
+ b8a:	80 91 28 01 	lds	r24, 0x0128
+ b8e:	8f 5f       	subi	r24, 0xFF	; 255
+ b90:	80 93 28 01 	sts	0x0128, r24
+	if (current_layer==CUBE_SIZE)	// If we have written all the layers to the shift registers, start over.
+ b94:	80 91 28 01 	lds	r24, 0x0128
+ b98:	8a 30       	cpi	r24, 0x0A	; 10
+ b9a:	11 f4       	brne	.+4      	; 0xba0 <__vector_4+0x190>
+	{
+		current_layer=0;
+ b9c:	10 92 28 01 	sts	0x0128, r1
+	}
+}
+ ba0:	0f 90       	pop	r0
+ ba2:	0f 90       	pop	r0
+ ba4:	cf 91       	pop	r28
+ ba6:	df 91       	pop	r29
+ ba8:	ff 91       	pop	r31
+ baa:	ef 91       	pop	r30
+ bac:	9f 91       	pop	r25
+ bae:	8f 91       	pop	r24
+ bb0:	6f 91       	pop	r22
+ bb2:	5f 91       	pop	r21
+ bb4:	4f 91       	pop	r20
+ bb6:	3f 91       	pop	r19
+ bb8:	2f 91       	pop	r18
+ bba:	0f 90       	pop	r0
+ bbc:	0f be       	out	0x3f, r0	; 63
+ bbe:	0f 90       	pop	r0
+ bc0:	1f 90       	pop	r1
+ bc2:	18 95       	reti
+
+00000bc4 <setup>:
+
+void setup(void)
+{	
+ bc4:	df 93       	push	r29
+ bc6:	cf 93       	push	r28
+ bc8:	cd b7       	in	r28, 0x3d	; 61
+ bca:	de b7       	in	r29, 0x3e	; 62
+	DDRA = 0x00; // Columns X,Y
+ bcc:	8a e3       	ldi	r24, 0x3A	; 58
+ bce:	90 e0       	ldi	r25, 0x00	; 0
+ bd0:	fc 01       	movw	r30, r24
+ bd2:	10 82       	st	Z, r1
+	DDRB = 0x00; // Layers  Z
+ bd4:	87 e3       	ldi	r24, 0x37	; 55
+ bd6:	90 e0       	ldi	r25, 0x00	; 0
+ bd8:	fc 01       	movw	r30, r24
+ bda:	10 82       	st	Z, r1
+	DDRC = 0x00; // Columns 8+9 (PC0,PC1), Layers 8+9 (PC2, PC3), SCK & RCK to shift registers X,Y (PC4,PC5), LED 1+2(PC6, PC7) 
+ bdc:	84 e3       	ldi	r24, 0x34	; 52
+ bde:	90 e0       	ldi	r25, 0x00	; 0
+ be0:	fc 01       	movw	r30, r24
+ be2:	10 82       	st	Z, r1
+	
+	PORTA = 0x00; // Turn all outputs off, just in case.
+ be4:	8b e3       	ldi	r24, 0x3B	; 59
+ be6:	90 e0       	ldi	r25, 0x00	; 0
+ be8:	fc 01       	movw	r30, r24
+ bea:	10 82       	st	Z, r1
+	PORTB = 0x00;
+ bec:	88 e3       	ldi	r24, 0x38	; 56
+ bee:	90 e0       	ldi	r25, 0x00	; 0
+ bf0:	fc 01       	movw	r30, r24
+ bf2:	10 82       	st	Z, r1
+	PORTC = 0x00;
+ bf4:	85 e3       	ldi	r24, 0x35	; 53
+ bf6:	90 e0       	ldi	r25, 0x00	; 0
+ bf8:	fc 01       	movw	r30, r24
+ bfa:	10 82       	st	Z, r1
+	
+	// Setup timer 2 for interrupts
+	// Frame buffer interrupt
+	// 16000000/128/21 = 5952.38 interrupts per second
+	// 5952.38/10 = 595 frames per second
+	OCR2 = 20; 							// Interrupt counter at 20
+ bfc:	83 e4       	ldi	r24, 0x43	; 67
+ bfe:	90 e0       	ldi	r25, 0x00	; 0
+ c00:	24 e1       	ldi	r18, 0x14	; 20
+ c02:	fc 01       	movw	r30, r24
+ c04:	20 83       	st	Z, r18
+    TCCR2 |= (1 << CS20) | (1 << CS22); // Set Clock prescaler to 128.
+ c06:	85 e4       	ldi	r24, 0x45	; 69
+ c08:	90 e0       	ldi	r25, 0x00	; 0
+ c0a:	25 e4       	ldi	r18, 0x45	; 69
+ c0c:	30 e0       	ldi	r19, 0x00	; 0
+ c0e:	f9 01       	movw	r30, r18
+ c10:	20 81       	ld	r18, Z
+ c12:	25 60       	ori	r18, 0x05	; 5
+ c14:	fc 01       	movw	r30, r24
+ c16:	20 83       	st	Z, r18
+	TCCR2 |= (1 << WGM21);				// Set CTC mode. Reset counter when OCR2 is reached.
+ c18:	85 e4       	ldi	r24, 0x45	; 69
+ c1a:	90 e0       	ldi	r25, 0x00	; 0
+ c1c:	25 e4       	ldi	r18, 0x45	; 69
+ c1e:	30 e0       	ldi	r19, 0x00	; 0
+ c20:	f9 01       	movw	r30, r18
+ c22:	20 81       	ld	r18, Z
+ c24:	28 60       	ori	r18, 0x08	; 8
+ c26:	fc 01       	movw	r30, r24
+ c28:	20 83       	st	Z, r18
+	TCNT2 = 0x00;						// Set initial value of counter to 0
+ c2a:	84 e4       	ldi	r24, 0x44	; 68
+ c2c:	90 e0       	ldi	r25, 0x00	; 0
+ c2e:	fc 01       	movw	r30, r24
+ c30:	10 82       	st	Z, r1
+	TIMSK |= (1 << OCIE2);				// Enable interrupt.
+ c32:	89 e5       	ldi	r24, 0x59	; 89
+ c34:	90 e0       	ldi	r25, 0x00	; 0
+ c36:	29 e5       	ldi	r18, 0x59	; 89
+ c38:	30 e0       	ldi	r19, 0x00	; 0
+ c3a:	f9 01       	movw	r30, r18
+ c3c:	20 81       	ld	r18, Z
+ c3e:	20 68       	ori	r18, 0x80	; 128
+ c40:	fc 01       	movw	r30, r24
+ c42:	20 83       	st	Z, r18
+ c44:	cf 91       	pop	r28
+ c46:	df 91       	pop	r29
+ c48:	08 95       	ret
+
+00000c4a <_exit>:
+ c4a:	f8 94       	cli
+
+00000c4c <__stop_program>:
+ c4c:	ff cf       	rjmp	.-2      	; 0xc4c <__stop_program>

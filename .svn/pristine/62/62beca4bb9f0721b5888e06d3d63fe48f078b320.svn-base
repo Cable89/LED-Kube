@@ -1,0 +1,112 @@
+Protel Design System Design Rule Check
+PCB File : C:\LED-Kube\Utlegg\Altium\LED-kube-kontrollerkort_v0-0-2\LED-kube-kontrollerkort_v0-0-1.PcbDoc
+Date     : 13.01.2013
+Time     : 18:36:06
+
+WARNING: Zero hole size multi-layer pad(s) detected
+   Pad J?-1(30.3mm,88.84mm)  Multi-Layer on Net VCC
+   Pad J?-2(24.1mm,88.84mm)  Multi-Layer on Net GND
+   Pad J?-3(27.1mm,93.84mm)  Multi-Layer on Net GND
+
+WARNING: Multilayer Pads with 0 size Hole found
+   Pad J?-1(30.3mm,88.84mm)  Multi-Layer
+   Pad J?-2(24.1mm,88.84mm)  Multi-Layer
+   Pad J?-3(27.1mm,93.84mm)  Multi-Layer
+
+Processing Rule : Room LED-kube-kontrollerkort_v0-0-1 (Bounding Region = (94.888mm, 51.915mm, 178.2mm, 84.3mm) (Disabled)(InComponentClass('LED-kube-kontrollerkort_v0-0-1'))
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.3mm) (Air Gap=0.3mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.2mm) (All),(All)
+   Violation between Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer and 
+                     Pad J2-4(27.063mm,65.05mm)  Top Layer
+   Violation between Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer and 
+                     Pad J2-5(27.063mm,65.85mm)  Top Layer
+   Violation between Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer and 
+                     Pad J2-3(27.063mm,64.25mm)  Top Layer
+   Violation between Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer and 
+                     Pad J2-2(27.063mm,63.45mm)  Top Layer
+   Violation between Area Fill (16.387mm,60.25mm) (25.887mm,68.25mm)  Keep-Out Layer and 
+                     Pad J2-1(27.062mm,62.65mm)  Top Layer
+   Violation between Track (47.75mm,47.35mm)(47.75mm,48.6mm)  Top Layer and 
+                     Pad U?-28(47.75mm,48.6mm)  Top Layer
+   Violation between Track (46.95mm,47.25mm)(46.95mm,48.6mm)  Top Layer and 
+                     Pad U?-27(46.95mm,48.6mm)  Top Layer
+   Violation between Text "." (29.27mm,53.03mm)  Keep-Out Layer and 
+                     Track (25.8mm,48.6mm)(32.25mm,55.05mm)  Top Layer
+   Violation between Text "." (72.43mm,86.41mm)  Keep-Out Layer and 
+                     Track (73.2mm,49.36mm)(73.2mm,92.7mm)  Top Layer
+   Violation between Text "." (72.43mm,86.41mm)  Keep-Out Layer and 
+                     Track (72.6mm,51.3mm)(72.6mm,92.4mm)  Top Layer
+   Violation between Text "." (72.43mm,86.41mm)  Keep-Out Layer and 
+                     Track (72mm,53.24mm)(72mm,92.1mm)  Top Layer
+   Violation between Text "." (29.27mm,53.03mm)  Keep-Out Layer and 
+                     Track (28.2mm,45mm)(28.2mm,58.8mm)  Bottom Layer
+Rule Violations :12
+
+Processing Rule : Width Constraint (Min=0.2mm) (Max=2mm) (Preferred=0.3mm) (All)
+   Violation between Width Constraint: Track (30.3mm,88.84mm)(36mm,83.14mm)  Top Layer
+Rule Violations :1
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+   Violation between Net Antennae: Track (47.75mm,47.35mm)(47.75mm,48.6mm)  Top Layer
+   Violation between Net Antennae: Track (46.95mm,47.25mm)(46.95mm,48.6mm)  Top Layer
+Rule Violations :2
+
+Processing Rule : Silk to Silk (Clearance=0.254mm) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Silkscreen Over Component Pads (Clearance=0.254mm) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.254mm) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.2mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (Disabled)(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J2-4 (27.063,65.05mm) And Pad J2-5 (27.063,65.85mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-2 (50.9,76.54mm) And Via (51,81mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P3-3 (66.87,83.72mm) And Via (66.87,89.26mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P4-3 (66.87,50.62mm) And Via (66.9,56.4mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J?-2A (24.1,89.84mm) And Pad J?-3A (26.1,93.84mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Via (50.8,70.4mm) And Pad P1-2 (50.9,76.54mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C3-1 (36.4,67.8mm) And Pad U?-63 (39.75,63.9mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U?-63 (39.75,63.9mm) And Pad U?-53 (47.75,63.9mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P1-10 (40.74,76.54mm) And Pad P1-2 (50.9,76.54mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Via (40.68,86.94mm) And Pad P1-10 (40.74,76.54mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J2-4 (27.063,65.05mm) And Pad C4-1 (30.65,57.5mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad C2-1 (46.45,37.35mm) And Via (57,36mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Track on layer Top Layer (41.95,37.4mm) And Pad U?-22 (42.95,48.6mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P9-2 (21.16,36mm) And Pad P8-2 (21.16,51mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U?-53 (47.75,63.9mm) And Via (50.8,70.4mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J2-5 (27.063,65.85mm) And Pad C3-1 (36.4,67.8mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad P8-2 (21.16,51mm) And Pad C4-1 (30.65,57.5mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad J?-2B (24.1,87.84mm) And Via (40.68,86.94mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Pad U?-63 (39.75,63.9mm) And Pad U?-22 (42.95,48.6mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Via (51,81mm) And Pad P3-3 (66.87,83.72mm)
+   Violation between Un-Routed Net Constraint: Net GND Between Via (57,36mm) And Pad P4-3 (66.87,50.62mm)
+Rule Violations :21
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+   Violation between Track (47.75mm,47.35mm)(47.75mm,48.6mm)  Top Layer and 
+                     Pad U?-28(47.75mm,48.6mm)  Top Layer
+   Violation between Track (46.95mm,47.25mm)(46.95mm,48.6mm)  Top Layer and 
+                     Pad U?-27(46.95mm,48.6mm)  Top Layer
+Rule Violations :2
+
+Processing Rule : SMD To Plane Constraint (Distance=0.3mm) (All)
+Rule Violations :0
+
+
+Violations Detected : 38
+Time Elapsed        : 00:00:01

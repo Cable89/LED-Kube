@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=C1 Old Footprint=C1206 New Footprint=0402
+Change Component Footprint: Designator=C2 Old Footprint=C1206 New Footprint=0402
+Change Component Footprint: Designator=C3 Old Footprint=C1206 New Footprint=1608[0603]
+Change Component Footprint: Designator=C4 Old Footprint=C1206 New Footprint=1608[0603]
+Change Component Designator: OldDesignator=C4 NewDesignator=C?

@@ -1,0 +1,20 @@
+
+Microsoft Visual Studio Solution File, Format Version 11.00
+# AvrStudio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Led_Cube-10x10x10-Red-v-0-0-1", "Led_Cube-10x10x10-Red-v-0-0-1\Led_Cube-10x10x10-Red-v-0-0-1.cproj", "{00EF28E9-9D3A-40C4-9ED8-CBE66BCEF75C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00EF28E9-9D3A-40C4-9ED8-CBE66BCEF75C}.Debug|AVR.ActiveCfg = Release|AVR
+		{00EF28E9-9D3A-40C4-9ED8-CBE66BCEF75C}.Debug|AVR.Build.0 = Release|AVR
+		{00EF28E9-9D3A-40C4-9ED8-CBE66BCEF75C}.Release|AVR.ActiveCfg = Release|AVR
+		{00EF28E9-9D3A-40C4-9ED8-CBE66BCEF75C}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

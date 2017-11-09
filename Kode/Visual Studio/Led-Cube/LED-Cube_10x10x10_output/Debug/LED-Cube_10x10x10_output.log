@@ -1,0 +1,73 @@
+﻿Build started 22.07.2012 00:09:08.
+     1>Project "C:\Users\Øystein\Documents\Visual Studio 2010\Projects\Led-Cube\LED-Cube_10x10x10_output\LED-Cube_10x10x10_output.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\LED-Cube_10x10x10_output.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp menu.cpp usb.cpp
+         usb.cpp
+         menu.cpp
+         main.cpp
+         Generating Code...
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\main.cpp(11): warning C4700: uninitialized local variable 'buf' used
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt rs232.c
+         rs232.c
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(239): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(241): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(243): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(245): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(247): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(249): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(251): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(253): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(255): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(257): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(259): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(261): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(263): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(284): error C2275: 'DCB' : illegal use of this type as an expression
+                 c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winbase.h(747) : see declaration of 'DCB'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(284): error C2146: syntax error : missing ';' before identifier 'port_settings'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(284): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(285): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(285): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(286): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(286): error C2224: left of '.DCBlength' must have struct/union type
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(286): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(288): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(288): warning C4133: 'function' : incompatible types - from 'int *' to 'LPDCB'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(295): error C2065: 'port_settings' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(295): warning C4133: 'function' : incompatible types - from 'int *' to 'LPDCB'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(302): error C2275: 'COMMTIMEOUTS' : illegal use of this type as an expression
+                 c:\program files (x86)\microsoft sdks\windows\v7.0a\include\winbase.h(755) : see declaration of 'COMMTIMEOUTS'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(302): error C2146: syntax error : missing ';' before identifier 'Cptimeouts'
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(302): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(304): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(304): error C2224: left of '.ReadIntervalTimeout' must have struct/union type
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(305): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(305): error C2224: left of '.ReadTotalTimeoutMultiplier' must have struct/union type
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(306): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(306): error C2224: left of '.ReadTotalTimeoutConstant' must have struct/union type
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(307): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(307): error C2224: left of '.WriteTotalTimeoutMultiplier' must have struct/union type
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(308): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(308): error C2224: left of '.WriteTotalTimeoutConstant' must have struct/union type
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(310): error C2065: 'Cptimeouts' : undeclared identifier
+     1>c:\users\øystein\documents\visual studio 2010\projects\led-cube\led-cube_10x10x10_output\rs232.c(310): warning C4133: 'function' : incompatible types - from 'int *' to 'LPCOMMTIMEOUTS'
+     1>Done Building Project "C:\Users\Øystein\Documents\Visual Studio 2010\Projects\Led-Cube\LED-Cube_10x10x10_output\LED-Cube_10x10x10_output.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:03.81
